@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09340DEF18D0BF28008DC7FA /* NodeListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09340DEE18D0BF28008DC7FA /* NodeListTableViewController.m */; };
+		09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09340DF118D0C799008DC7FA /* NodesMapViewController.m */; };
 		09BBBAB418CFF84800B4B884 /* PickupDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BBBAB318CFF84800B4B884 /* PickupDetailsViewController.m */; };
 		09BBBABA18D046FB00B4B884 /* SignupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BBBAB918D046FB00B4B884 /* SignupViewController.m */; };
 		09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 09BBBABC18D0792900B4B884 /* LoginViewController.m */; };
@@ -37,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09340DED18D0BF28008DC7FA /* NodeListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeListTableViewController.h; path = admin/NodeListTableViewController.h; sourceTree = "<group>"; };
+		09340DEE18D0BF28008DC7FA /* NodeListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeListTableViewController.m; path = admin/NodeListTableViewController.m; sourceTree = "<group>"; };
+		09340DF018D0C799008DC7FA /* NodesMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodesMapViewController.h; path = admin/NodesMapViewController.h; sourceTree = "<group>"; };
+		09340DF118D0C799008DC7FA /* NodesMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodesMapViewController.m; path = admin/NodesMapViewController.m; sourceTree = "<group>"; };
 		09BBBAB218CFF84800B4B884 /* PickupDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PickupDetailsViewController.h; path = views/PickupDetailsViewController.h; sourceTree = "<group>"; };
 		09BBBAB318CFF84800B4B884 /* PickupDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PickupDetailsViewController.m; path = views/PickupDetailsViewController.m; sourceTree = "<group>"; };
 		09BBBAB818D046FB00B4B884 /* SignupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignupViewController.h; path = common/SignupViewController.h; sourceTree = "<group>"; };
@@ -100,6 +106,10 @@
 		09BBBAB618D046C000B4B884 /* admin */ = {
 			isa = PBXGroup;
 			children = (
+				09340DED18D0BF28008DC7FA /* NodeListTableViewController.h */,
+				09340DEE18D0BF28008DC7FA /* NodeListTableViewController.m */,
+				09340DF018D0C799008DC7FA /* NodesMapViewController.h */,
+				09340DF118D0C799008DC7FA /* NodesMapViewController.m */,
 			);
 			name = admin;
 			sourceTree = "<group>";
@@ -289,8 +299,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D8CA0418CEFCDE0099D9D2 /* ViewController.m in Sources */,
+				09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */,
 				09BBBAB418CFF84800B4B884 /* PickupDetailsViewController.m in Sources */,
 				09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */,
+				09340DEF18D0BF28008DC7FA /* NodeListTableViewController.m in Sources */,
 				09D8C9FE18CEFCDE0099D9D2 /* AppDelegate.m in Sources */,
 				09D8C9FA18CEFCDE0099D9D2 /* main.m in Sources */,
 				09BBBABA18D046FB00B4B884 /* SignupViewController.m in Sources */,

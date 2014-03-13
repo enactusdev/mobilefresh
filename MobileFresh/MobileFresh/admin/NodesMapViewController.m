@@ -1,18 +1,18 @@
 //
-//  LoginViewController.m
+//  NodesMapViewController.m
 //  MobileFresh
 //
 //  Created by saurabh agrawal on 12/03/14.
 //  Copyright (c) 2014 Enactus. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "NodesMapViewController.h"
 
-@interface LoginViewController ()
+@interface NodesMapViewController ()
 
 @end
 
-@implementation LoginViewController
+@implementation NodesMapViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +26,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //TODO
+    //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
+    //TODO
+    //find the shortest path between these nodes using TSP algorithm. and display the path as per that.
+    //TODO
+    //User can press a pin. On pressing of the pin ask user to confirm whether she/he has picked the food with three choices - YES, NO, Cancel.
+    
+    //TODO
+    //make a webservice call to post food pickup result to server.
+    
     // Do any additional setup after loading the view.
 }
 
@@ -34,18 +44,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (IBAction)login:(id)sender {
-    NSLog(@"login button pressed");
-//userLogin Segue
-        NSLog(@"check for successful login");
-    //TODO
-    //check if user has successfully logged in or not.
-    //If not then display error message on login screen,
-    //else take user to next screen corresponding to their user type
-    [self performSegueWithIdentifier:@"userLogin" sender:self];
-}
-
 
 /*
 #pragma mark - Navigation

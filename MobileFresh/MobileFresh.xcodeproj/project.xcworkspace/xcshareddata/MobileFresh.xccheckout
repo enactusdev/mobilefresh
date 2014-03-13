@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B3B3504F-ACBE-461E-9A1C-D02B31CA0ED3</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MobileFresh</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>36BD8076-3F3C-4977-857E-305346515CBA</key>
+		<string>https://github.com/enactusdev/mobilefresh</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MobileFresh/MobileFresh.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>36BD8076-3F3C-4977-857E-305346515CBA</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/enactusdev/mobilefresh</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>36BD8076-3F3C-4977-857E-305346515CBA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>36BD8076-3F3C-4977-857E-305346515CBA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MobileFreshGit1</string>
+		</dict>
+	</array>
+</dict>
+</plist>

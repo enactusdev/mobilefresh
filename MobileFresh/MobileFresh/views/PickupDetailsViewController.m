@@ -38,6 +38,12 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)submitFoodDetails:(id)sender {
+    //TODO
+    //post the food pickup details to server
+    [self performSegueWithIdentifier:@"submitFoodPick" sender:self];
+}
+
 ////for moving textview up and down
 
 #define kOFFSET_FOR_KEYBOARD 90.0

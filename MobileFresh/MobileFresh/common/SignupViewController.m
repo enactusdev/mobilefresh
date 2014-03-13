@@ -48,8 +48,16 @@
 - (IBAction)cancel:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
 - (IBAction)submit:(id)sender {
+    //TODO
     //send the registration request to server
+    //verify user information
+    //check that password and password2 are same.
+    //check that user has provided all the information.
+    //call server api for signup
+    //return success message
+    //show the corresponding page depending on user is donater or admin
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
