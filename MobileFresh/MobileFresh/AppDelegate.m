@@ -14,7 +14,7 @@
 {
     // Override point for customization after application launch.
     //TODO
-    //find users's current location 
+    //find users's current location and save in user settings
     return YES;
 }
 							
