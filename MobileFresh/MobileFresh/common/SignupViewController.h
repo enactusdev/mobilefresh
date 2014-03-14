@@ -7,17 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
+#define ServerAddress  @"http://192.168.1.24:8089/mobilefresh/MobileApis/test.php?method="
 
-@interface SignupViewController : UIViewController
+@interface SignupViewController : UIViewController<UITextFieldDelegate>
+{
+     NSMutableData  *_responseData;
+//    IBOutlet UISegmentedControl *userType;
+    UISegmentedControl *user_type;
+    IBOutlet UITextField *userName;
+    IBOutlet UITextField *password;
+    IBOutlet UITextField *password2;
+    IBOutlet UITextField *email;
+    IBOutlet UITextField *organization;
+    
+    NSString *selectedSegmentText;
+}
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
+- (IBAction)selectSegment:(id)sender;
 
 
-@property (weak, nonatomic) IBOutlet UITextField *userName;
-@property (weak, nonatomic) IBOutlet UITextField *password;
-@property (weak, nonatomic) IBOutlet UITextField *password2;
-@property (weak, nonatomic) IBOutlet UITextField *email;
-@property (weak, nonatomic) IBOutlet UITextField *organization;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *userType;
+-(BOOL)checkPwd;
+-(BOOL)checkEmptyTextFieldText;
 
 @end

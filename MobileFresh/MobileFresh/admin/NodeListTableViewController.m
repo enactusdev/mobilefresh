@@ -26,6 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+ 
     //TODO
     //get the list of nodes from server and display them here
     
@@ -37,7 +39,37 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+-(void)btnSelected
+{
+    [self performSegueWithIdentifier:@"MapView" sender:self];
+//    NodesMapViewController *vc2=[[NodesMapViewController alloc]init];
+//    
+//    [self presentViewController:vc2 animated:YES completion:nil];
+    
 
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    return 50;
+}
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    
+    UIView *newView = [[UIView alloc]initWithFrame:CGRectMake(10, 70, 300, 45)];
+    UIButton *submit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [submit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [submit setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.56] forState:UIControlStateNormal];
+    
+    [submit setBackgroundColor:[UIColor grayColor]];
+    [submit setTitle:@"Next" forState:UIControlStateNormal];
+    [submit.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+    [submit setFrame:CGRectMake(110.0, 15.0, 80.0, 44.0)];
+    [submit addTarget:self action:@selector(btnSelected) forControlEvents:UIControlEventTouchUpInside];
+    [newView addSubview:submit];
+    
+    return newView;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -48,28 +80,29 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nodeCell" forIndexPath:indexPath];
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
+
 
 /*
 // Override to support conditional editing of the table view.

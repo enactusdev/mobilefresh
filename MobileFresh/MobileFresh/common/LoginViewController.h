@@ -7,8 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#define ServerAddress  @"http://192.168.1.24:8089/mobilefresh/MobileApis/test.php?method="
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController<UITextFieldDelegate>
+{
+     NSMutableData           *_responseData;
+   
+    NSMutableData *responseData;
+    NSURLConnection *conn;
+   
+    BOOL emptyFieldValue;
+}
 @property (weak, nonatomic) IBOutlet UITextField *userName;
 @property (weak, nonatomic) IBOutlet UITextField *password;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;

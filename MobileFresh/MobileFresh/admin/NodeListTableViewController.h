@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NodesMapViewController.h"
 
-@interface NodeListTableViewController : UITableViewController
+@interface NodeListTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

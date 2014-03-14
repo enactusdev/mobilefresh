@@ -26,6 +26,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.nodesMapView.mapType = MKMapTypeHybrid;
+    
+    
     //TODO
     //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
     //TODO
