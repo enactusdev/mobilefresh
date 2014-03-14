@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-
+#import "Annotation.h"
 @interface NodesMapViewController : UIViewController<MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *nodesMapView;
 

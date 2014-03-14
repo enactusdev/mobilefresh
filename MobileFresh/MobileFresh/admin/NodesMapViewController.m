@@ -32,6 +32,18 @@
     self.nodesMapView.showsUserLocation = YES;
     [self.view addSubview:self.nodesMapView];
     
+    //Annotation
+
+    CLLocationCoordinate2D annotationCoord;
+    annotationCoord.latitude = 47.640071;
+    annotationCoord.longitude = -122.129598;
+    MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+    annotationPoint.coordinate = annotationCoord;
+    annotationPoint.title = @"Microsoft";
+    annotationPoint.subtitle = @"Microsoft's headquarters";
+    [nodesMapView addAnnotation:annotationPoint];
+    
+    
     //TODO
     //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
     //TODO
@@ -50,6 +62,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)zoomToCurrentLocation:(UIBarButtonItem *)sender {
     float spanX = 0.00725;
     float spanY = 0.00725;
@@ -58,17 +71,28 @@
     region.center.longitude = self.nodesMapView.userLocation.coordinate.longitude;
     region.span.latitudeDelta = spanX;
     region.span.longitudeDelta = spanY;
-   
     [self.nodesMapView setRegion:region animated:YES];
 }
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    [nodesMapView setRegion:[nodesMapView regionThatFits:region] animated:YES];
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate = userLocation.coordinate;
+    point.title = @"Where am I?";
+    point.subtitle = @"I'm here!!!";
+    [nodesMapView addAnnotation:point];
+}
+
 
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
    // self.searchButton.hidden = NO;
 }
 
--(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-    [self.nodesMapView setCenterCoordinate:userLocation.coordinate animated:YES];
-}
+//-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+//    [self.nodesMapView setCenterCoordinate:userLocation.coordinate animated:YES];
+//}
 
 
 /*
