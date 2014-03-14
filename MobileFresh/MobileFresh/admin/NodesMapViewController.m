@@ -13,7 +13,7 @@
 @end
 
 @implementation NodesMapViewController
-
+@synthesize nodesMapView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,8 +26,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.nodesMapView.mapType = MKMapTypeHybrid;
-    
+    self.nodesMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height)];
+    self.nodesMapView.mapType = MKMapTypeStandard;
+    self.nodesMapView.delegate = self;
+    self.nodesMapView.showsUserLocation = YES;
+    [self.view addSubview:self.nodesMapView];
     
     //TODO
     //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
@@ -47,6 +50,26 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)zoomToCurrentLocation:(UIBarButtonItem *)sender {
+    float spanX = 0.00725;
+    float spanY = 0.00725;
+    MKCoordinateRegion region;
+    region.center.latitude = self.nodesMapView.userLocation.coordinate.latitude;
+    region.center.longitude = self.nodesMapView.userLocation.coordinate.longitude;
+    region.span.latitudeDelta = spanX;
+    region.span.longitudeDelta = spanY;
+   
+    [self.nodesMapView setRegion:region animated:YES];
+}
+
+-(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+   // self.searchButton.hidden = NO;
+}
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    [self.nodesMapView setCenterCoordinate:userLocation.coordinate animated:YES];
+}
+
 
 /*
 #pragma mark - Navigation

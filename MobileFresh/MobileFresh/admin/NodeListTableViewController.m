@@ -43,8 +43,7 @@
 {
     [self performSegueWithIdentifier:@"MapView" sender:self];
 //    NodesMapViewController *vc2=[[NodesMapViewController alloc]init];
-//    
-//    [self presentViewController:vc2 animated:YES completion:nil];
+//   [self.navigationViewController:vc2 animated:YES completion:nil];
     
 
 }
