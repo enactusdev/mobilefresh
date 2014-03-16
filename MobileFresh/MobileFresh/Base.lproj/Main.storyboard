@@ -58,7 +58,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="SrN-Gl-cIz"/>
                     <connections>
@@ -453,8 +453,8 @@ Thank You</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="25o-Dc-XlE"/>
         <segue reference="qqL-wo-lIk"/>
-        <segue reference="bQ7-oD-qYb"/>
         <segue reference="SX4-qT-dwq"/>
     </inferredMetricsTieBreakers>
 </document>
