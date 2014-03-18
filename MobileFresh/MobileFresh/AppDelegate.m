@@ -10,14 +10,41 @@
 
 @implementation AppDelegate
 
+#pragma mark - Properties
+
+@synthesize locationManager;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     //TODO
     //find users's current location and save in user settings
+    [self initLocationManager];
     return YES;
 }
-							
+
+
+-(void)initLocationManager
+{
+    
+    if (self.locationManager == nil)
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.desiredAccuracy =
+        kCLLocationAccuracyNearestTenMeters;
+        self.locationManager.delegate = self;
+    }
+    [self.locationManager startUpdatingLocation];
+
+}
+- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    NSLog(@"%@", @"Core location has a position.");
+}
+- (void) locationManager:(CLLocationManager *)manager
+        didFailWithError:(NSError *)error
+{
+    NSLog(@"%@", @"Core location can't get a fix.");
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

@@ -39,6 +39,8 @@
 		09D8CA0F18CEFCDF0099D9D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D8C9F118CEFCDE0099D9D2 /* UIKit.framework */; };
 		09D8CA1718CEFCDF0099D9D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09D8CA1518CEFCDF0099D9D2 /* InfoPlist.strings */; };
 		09D8CA1918CEFCDF0099D9D2 /* MobileFreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */; };
+		30BB4CDF18D81CEA00B7B8BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */; };
+		30BB4CE018D81CFB00B7B8BF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086618D31B4B00C2D60C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086918D345F700C2D60C /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21086818D345F700C2D60C /* Annotation.m */; };
 /* End PBXBuildFile section */
@@ -96,6 +98,7 @@
 		09D8CA1418CEFCDF0099D9D2 /* MobileFreshTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobileFreshTests-Info.plist"; sourceTree = "<group>"; };
 		09D8CA1618CEFCDF0099D9D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileFreshTests.m; sourceTree = "<group>"; };
+		30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		5A21086518D31B4B00C2D60C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5A21086718D345F700C2D60C /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		5A21086818D345F700C2D60C /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
@@ -106,6 +109,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30BB4CE018D81CFB00B7B8BF /* MapKit.framework in Frameworks */,
+				30BB4CDF18D81CEA00B7B8BF /* CoreLocation.framework in Frameworks */,
 				09D8C9F018CEFCDE0099D9D2 /* CoreGraphics.framework in Frameworks */,
 				09D8C9F218CEFCDE0099D9D2 /* UIKit.framework in Frameworks */,
 				09D8C9EE18CEFCDE0099D9D2 /* Foundation.framework in Frameworks */,
@@ -201,6 +206,7 @@
 		09D8C9EC18CEFCDE0099D9D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */,
 				5A21086518D31B4B00C2D60C /* MapKit.framework */,
 				09D8C9ED18CEFCDE0099D9D2 /* Foundation.framework */,
 				09D8C9EF18CEFCDE0099D9D2 /* CoreGraphics.framework */,

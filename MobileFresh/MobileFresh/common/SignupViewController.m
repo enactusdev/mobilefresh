@@ -100,10 +100,10 @@
         if(emptyFieldValue)
         {
             
-            NSString *firstName = userName.text;
-            NSString *email1 = email.text;
-            NSString *password1= password.text;
-            NSString *passwordconf = password2.text;
+//            NSString *firstName = userName.text;
+//            NSString *email1 = email.text;
+//            NSString *password1= password.text;
+//            NSString *passwordconf = password2.text;
             userType.selectedSegmentIndex=0;
             NSString *userTypeStr=[userType titleForSegmentAtIndex:0];
             
@@ -243,7 +243,7 @@
 {
     //    [_activityIndicator showCustomActivity:NO];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(_responseData)
     {
         NSString *newStr = [[NSString alloc]initWithData:_responseData encoding:NSUTF8StringEncoding];

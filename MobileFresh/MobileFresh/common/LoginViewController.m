@@ -55,8 +55,8 @@
         NSLog(@"Alert message");
     
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSString *strPassword =password.text;
-        NSString *strUserName = userName.text;
+//        NSString *strPassword =password.text;
+//        NSString *strUserName = userName.text;
         NSString *strRequest;
         NSURL *url = nil;
         NSMutableURLRequest *request = nil;
@@ -143,9 +143,9 @@
 {
     NSLog(@"login button pressed");
     //userLogin Segue
-     BOOL emptyFieldValue = [self checkTextFieldVal];
+    BOOL emptyFieldValueObj = [self checkTextFieldVal];
         //sending request
-    if(!emptyFieldValue)
+    if(!emptyFieldValueObj)
         {
             [self sendServerRequest];
     }

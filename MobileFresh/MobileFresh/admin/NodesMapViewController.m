@@ -7,7 +7,7 @@
 //
 
 #import "NodesMapViewController.h"
-
+#import "AppDelegate.h"
 @interface NodesMapViewController ()
 
 @end
@@ -26,6 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self getCurrentLocation];
     self.nodesMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height)];
     self.nodesMapView.mapType = MKMapTypeStandard;
     self.nodesMapView.delegate = self;
@@ -57,6 +59,19 @@
     // Do any additional setup after loading the view.
 }
 
+
+-(void)getCurrentLocation
+{
+    AppDelegate *appDel =(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    CLLocation *curPos = appDel.locationManager.location;
+    
+    NSString *latitude = [[NSNumber numberWithDouble:curPos.coordinate.latitude] stringValue];
+    
+    NSString *longitude = [[NSNumber numberWithDouble:curPos.coordinate.longitude] stringValue];
+    
+    NSLog(@"Lat: %@", latitude);
+    NSLog(@"Long: %@", longitude);
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
