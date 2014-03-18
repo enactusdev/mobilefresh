@@ -118,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muu-5h-0V3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1747" y="-202"/>
+            <point key="canvasLocation" x="1691" y="63"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="y7u-MW-trz">
@@ -209,26 +209,6 @@
                                     <action selector="cancel:" destination="LAx-oQ-gAd" eventType="touchDown" id="0S6-ix-ZiG"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="cancelBtn2" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Lf5-BS-xgH">
-                                <rect key="frame" x="77" y="10000" width="166" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <connections>
-                                    <action selector="cancel:" destination="LAx-oQ-gAd" eventType="touchDown" id="cCN-Bq-bqY"/>
-                                    <segue destination="uWc-3S-4rF" kind="push" identifier="PickerDetails" id="bQ7-oD-qYb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="cancelBtn" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9mZ-lJ-Ioa">
-                                <rect key="frame" x="77" y="1200" width="166" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                <connections>
-                                    <action selector="cancel:" destination="LAx-oQ-gAd" eventType="touchDown" id="2Sz-AG-42M"/>
-                                    <segue destination="jOB-eP-Xw0" kind="push" identifier="NodeList" id="SX4-qT-dwq"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -242,11 +222,13 @@
                         <outlet property="submitBtn" destination="r0M-w6-a27" id="zt5-xQ-XOv"/>
                         <outlet property="userName" destination="XLb-cT-Iu0" id="hjv-9m-rR7"/>
                         <outlet property="userType" destination="O7Q-fp-CFO" id="zOG-Pm-aVA"/>
+                        <segue destination="uWc-3S-4rF" kind="push" identifier="PickerDetails" id="vu7-u4-BEx"/>
+                        <segue destination="jOB-eP-Xw0" kind="push" identifier="NodeList" id="nOX-wS-Afg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpy-vQ-QsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1772" y="577"/>
+            <point key="canvasLocation" x="1256" y="1045"/>
         </scene>
         <!--Pickup Details View Controller - Pickup Details-->
         <scene sceneID="sSz-Nb-ixp">
@@ -406,7 +388,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vex-n5-HSJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2203" y="558"/>
+            <point key="canvasLocation" x="1851" y="1045"/>
         </scene>
         <!--Nodes Map View Controller-->
         <scene sceneID="Bv5-vP-ow7">
@@ -479,8 +461,8 @@ Thank You</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="25o-Dc-XlE"/>
-        <segue reference="qqL-wo-lIk"/>
-        <segue reference="SX4-qT-dwq"/>
+        <segue reference="nOX-wS-Afg"/>
+        <segue reference="vu7-u4-BEx"/>
+        <segue reference="Bhy-Rh-8gw"/>
     </inferredMetricsTieBreakers>
 </document>

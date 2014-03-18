@@ -72,13 +72,11 @@
 }
 
 - (IBAction)zoomToCurrentLocation:(UIBarButtonItem *)sender {
-    float spanX = 0.00725;
-    float spanY = 0.00725;
     MKCoordinateRegion region;
     region.center.latitude = self.nodesMapView.userLocation.coordinate.latitude;
     region.center.longitude = self.nodesMapView.userLocation.coordinate.longitude;
-    region.span.latitudeDelta = spanX;
-    region.span.longitudeDelta = spanY;
+    region.span.latitudeDelta = 0.00725;
+    region.span.longitudeDelta = 0.00725;
     [self.nodesMapView setRegion:region animated:YES];
 }
 
@@ -89,7 +87,7 @@
         if(node.isNodeSelected){
             MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
             annotationPoint.coordinate = CLLocationCoordinate2DMake(node.latitude, node.longitude);
-            annotationPoint.title = @"Is Food Collected";
+//            annotationPoint.title = @"Is Food Collected";
             [nodesMapView addAnnotation:annotationPoint];
             count ++;
         }
@@ -168,45 +166,58 @@ int tsp(int **adjMatrix, int numberPoints)
     
     return min;
 }
+//
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+//{
+//    static NSString *identifier = @"MapPoint";
+//    
+//    if (![annotation isKindOfClass:[MKUserLocation class]]) {
+//        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [nodesMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+//        if (annotationView == nil) {
+//            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+//        } else {
+//            annotationView.annotation = annotation;
+//        }
+//        annotationView.enabled = YES;
+//        annotationView.canShowCallout = YES;
+//        annotationView.animatesDrop = YES;
+////        annotationView.image = [UIImage imageNamed:@"myimage.png"];
+//        
+//        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//        //UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//        [rightButton setImage:[UIImage imageNamed:@"phony2.png"] forState:UIControlStateNormal];
+//        [rightButton addTarget:self
+//                        action:@selector(showDetails:)
+//              forControlEvents:UIControlEventTouchUpInside];
+//        annotationView.rightCalloutAccessoryView = rightButton;
+//        
+//        return annotationView;
+//    }
+//    return nil;
+//}
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
     if(![view.annotation isKindOfClass:[MKUserLocation class]])
     {
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        button.frame = CGRectMake(5.0, 5.0, 25, 25);
-        [button setTitle:@"OK" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(checkin) forControlEvents:UIControlEventTouchUpInside];
-        [view.superview addSubview:button];
+        [self foodPickOption];
     }
 }
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
-//    MKAnnotationView *annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
-//    
-//    // Button
-////    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-////    button.frame = CGRectMake(0, 0, 23, 23);
-////    annotationView.rightCalloutAccessoryView = button;
-//    
-//    // Image and two labels
-//    UIView *leftCAV = [[UIView alloc] initWithFrame:CGRectMake(0,0,23,23)];
-////    [leftCAV addSubview : yourImageView];
-////    [leftCAV addSubview : yourFirstLabel];
-////    [leftCAV addSubview : yourSecondLabel];
-//    annotationView.leftCalloutAccessoryView = leftCAV;
-//    
-//    annotationView.canShowCallout = YES;
-//    
-//    return annotationView;
-//}
+
+-(void)foodPickOption
+{
+    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:@"Visited this node" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Collected",@"Not Collected", nil];
+    
+    [alertView show];
+}
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
    // self.searchButton.hidden = NO;
 }
 
-//-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
-//    [self.nodesMapView setCenterCoordinate:userLocation.coordinate animated:YES];
-//}
 
-
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"string---%d",buttonIndex);
+}
 /*
 #pragma mark - Navigation
 

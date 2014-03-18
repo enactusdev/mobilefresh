@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "Annotation.h"
-@interface NodesMapViewController : UIViewController<MKMapViewDelegate>
+@interface NodesMapViewController : UIViewController<MKMapViewDelegate,UIAlertViewDelegate>
 @property (strong, nonatomic) MKMapView *nodesMapView;
 @property (strong, nonatomic) NSArray *nodesArray;
 @end
