@@ -54,7 +54,6 @@
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <action selector="login:" destination="vXZ-lx-hvc" eventType="touchDown" id="hsc-kc-hQz"/>
-                                    <segue destination="uWc-3S-4rF" kind="push" identifier="userLogin" id="25o-Dc-XlE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,6 +65,8 @@
                         <outlet property="password" destination="XKM-X9-H90" id="pLC-d1-alU"/>
                         <outlet property="signupBtn" destination="N4P-jM-GPf" id="Lpj-BK-REr"/>
                         <outlet property="userName" destination="nXY-fo-cAG" id="SwF-gN-9M6"/>
+                        <segue destination="uWc-3S-4rF" kind="push" identifier="userLogin" id="1M0-hi-fgr"/>
+                        <segue destination="jOB-eP-Xw0" kind="push" identifier="adminLogin" id="fbL-Gg-sPf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -118,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muu-5h-0V3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1691" y="63"/>
+            <point key="canvasLocation" x="1341" y="43"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="y7u-MW-trz">
@@ -228,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpy-vQ-QsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1256" y="1045"/>
+            <point key="canvasLocation" x="1153" y="734"/>
         </scene>
         <!--Pickup Details View Controller - Pickup Details-->
         <scene sceneID="sSz-Nb-ixp">
@@ -388,7 +389,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vex-n5-HSJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1851" y="1045"/>
+            <point key="canvasLocation" x="793" y="839"/>
         </scene>
         <!--Nodes Map View Controller-->
         <scene sceneID="Bv5-vP-ow7">
@@ -461,8 +462,8 @@ Thank You</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="nOX-wS-Afg"/>
-        <segue reference="vu7-u4-BEx"/>
+        <segue reference="1M0-hi-fgr"/>
+        <segue reference="fbL-Gg-sPf"/>
         <segue reference="Bhy-Rh-8gw"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -63,17 +63,17 @@
         
         strRequest = [NSString stringWithFormat:@"&email=%@&password=%@",userName.text,password.text];
         NSString *urlString = [NSString stringWithFormat:@"%@signin&format=json",ServerAddress];
-    url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-        NSLog(@"%@%@",urlString,strRequest);
+    
     urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
+    url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         [request setHTTPMethod:@"POST"];
         
-        [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
-        
-        NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
-        [request setHTTPBody: requestData];
-        
+//        [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
+    
+//        NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
+//        [request setHTTPBody: requestData];
+    
         NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
         [connection start];
         NSLog(@"%@",strRequest);
@@ -202,16 +202,21 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
-    NSString *htmlSTR = [[NSString alloc] initWithData:responseData
-                                              encoding:NSUTF8StringEncoding];
-      if(htmlSTR)
+//    NSString *htmlSTR = [[NSString alloc] initWithData:responseData
+//                                              encoding:NSUTF8StringEncoding];
+    
+    NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:nil];
+      if(resultDict)
     {
+        
         NSLog(@"connected Successfully");
         
-        
+        if ([[resultDict valueForKey:@"message"] isEqualToString:@"admin signed in"]) {
+            [self performSegueWithIdentifier:@"adminLogin" sender:self];
+        }
     }
     
-    NSLog(@"%@" , htmlSTR);
+    NSLog(@"%@" , resultDict);
     //initialize a new webviewcontroller
 }
 
