@@ -43,7 +43,7 @@
     [password setClearButtonMode:UITextFieldViewModeWhileEditing];
     self.userName.delegate = self;
     self.password.delegate=self;
-   
+
 
 
     // Do any additional setup after loading the view.
@@ -63,11 +63,9 @@
         
         strRequest = [NSString stringWithFormat:@"&email=%@&password=%@",userName.text,password.text];
         NSString *urlString = [NSString stringWithFormat:@"%@signin&format=json",ServerAddress];
-        
-        
-        url = [NSURL URLWithString:urlString];
-        NSLog(@"%@?%@",urlString,strRequest);
-        
+    url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        NSLog(@"%@%@",urlString,strRequest);
+    urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
         request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         [request setHTTPMethod:@"POST"];
         
@@ -81,15 +79,15 @@
         NSLog(@"%@",strRequest);
         
         
-        if(connection)
-        {
-            NSLog(@"Connection Successful");
-            
-        }
-        else{
-            NSLog(@"Not connected");
-            
-        }
+//        if(connection)
+//        {
+//            NSLog(@"Connection Successful");
+//            
+//        }
+//        else{
+//            NSLog(@"Not connected");
+//            
+//        }
     
 
 }
@@ -145,14 +143,15 @@
     //userLogin Segue
     BOOL emptyFieldValueObj = [self checkTextFieldVal];
         //sending request
-    if(!emptyFieldValueObj)
+    
+     if(emptyFieldValueObj)
         {
             [self sendServerRequest];
     }
-    else
-    {
-       [self performSegueWithIdentifier:@"userLogin" sender:self];
-    }
+//        else
+//    {
+//               [self performSegueWithIdentifier:@"userLogin" sender:self];
+//    }
     
     //TODO
     //check if user has successfully logged in or not.
@@ -205,10 +204,10 @@
     // You can parse the stuff in your instance variable now
     NSString *htmlSTR = [[NSString alloc] initWithData:responseData
                                               encoding:NSUTF8StringEncoding];
-    
-    if(htmlSTR)
+      if(htmlSTR)
     {
         NSLog(@"connected Successfully");
+        
         
     }
     
