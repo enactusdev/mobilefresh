@@ -122,8 +122,8 @@
             NSString *urlString = [NSString stringWithFormat:@"%@signup&format=json&",ServerAddress];
             
             NSLog(@"URLSTRING ------->>%@?%@",urlString,strRequest);
-            
-            url = [NSURL URLWithString:urlString];
+             url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            //url = [NSURL URLWithString:urlString];
             
             request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
             [request setHTTPMethod:@"POST"];

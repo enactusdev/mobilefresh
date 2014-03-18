@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tf1-Ey-0b5">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="tf1-Ey-0b5">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -54,7 +54,6 @@
                                 <state key="normal" title="Log in"/>
                                 <connections>
                                     <action selector="login:" destination="vXZ-lx-hvc" eventType="touchDown" id="hsc-kc-hQz"/>
-                                    <segue destination="uWc-3S-4rF" kind="push" identifier="userLogin" id="25o-Dc-XlE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,6 +65,7 @@
                         <outlet property="password" destination="XKM-X9-H90" id="pLC-d1-alU"/>
                         <outlet property="signupBtn" destination="N4P-jM-GPf" id="Lpj-BK-REr"/>
                         <outlet property="userName" destination="nXY-fo-cAG" id="SwF-gN-9M6"/>
+                        <segue destination="uWc-3S-4rF" kind="push" identifier="userLogin" id="2Kb-iS-8YN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -118,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muu-5h-0V3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1747" y="-202"/>
+            <point key="canvasLocation" x="1427" y="-144"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="y7u-MW-trz">
@@ -453,8 +453,8 @@ Thank You</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="25o-Dc-XlE"/>
-        <segue reference="qqL-wo-lIk"/>
-        <segue reference="SX4-qT-dwq"/>
+        <segue reference="2Kb-iS-8YN"/>
+        <segue reference="Bhy-Rh-8gw"/>
+        <segue reference="YJA-PT-ZoS"/>
     </inferredMetricsTieBreakers>
 </document>
