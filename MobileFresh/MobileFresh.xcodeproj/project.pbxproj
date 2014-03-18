@@ -41,6 +41,9 @@
 		09D8CA1918CEFCDF0099D9D2 /* MobileFreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */; };
 		30BB4CDF18D81CEA00B7B8BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */; };
 		30BB4CE018D81CFB00B7B8BF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
+		30BB4CE418D8312000B7B8BF /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CE318D8312000B7B8BF /* Node.m */; };
+		30BB4CE818D8325E00B7B8BF /* MobileFreshUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CE718D8325E00B7B8BF /* MobileFreshUtil.m */; };
+		30BB4CEB18D8348200B7B8BF /* NodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CEA18D8348200B7B8BF /* NodeCell.m */; };
 		5A21086618D31B4B00C2D60C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086918D345F700C2D60C /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21086818D345F700C2D60C /* Annotation.m */; };
 /* End PBXBuildFile section */
@@ -99,6 +102,12 @@
 		09D8CA1618CEFCDF0099D9D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileFreshTests.m; sourceTree = "<group>"; };
 		30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		30BB4CE218D8312000B7B8BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		30BB4CE318D8312000B7B8BF /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
+		30BB4CE618D8325E00B7B8BF /* MobileFreshUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobileFreshUtil.h; path = Util/MobileFreshUtil.h; sourceTree = "<group>"; };
+		30BB4CE718D8325E00B7B8BF /* MobileFreshUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MobileFreshUtil.m; path = Util/MobileFreshUtil.m; sourceTree = "<group>"; };
+		30BB4CE918D8348200B7B8BF /* NodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeCell.h; path = Util/CustomCell/NodeCell.h; sourceTree = "<group>"; };
+		30BB4CEA18D8348200B7B8BF /* NodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeCell.m; path = Util/CustomCell/NodeCell.m; sourceTree = "<group>"; };
 		5A21086518D31B4B00C2D60C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5A21086718D345F700C2D60C /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		5A21086818D345F700C2D60C /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
@@ -169,6 +178,8 @@
 				09340DF118D0C799008DC7FA /* NodesMapViewController.m */,
 				5A21086718D345F700C2D60C /* Annotation.h */,
 				5A21086818D345F700C2D60C /* Annotation.m */,
+				30BB4CE918D8348200B7B8BF /* NodeCell.h */,
+				30BB4CEA18D8348200B7B8BF /* NodeCell.m */,
 			);
 			name = admin;
 			sourceTree = "<group>";
@@ -219,6 +230,8 @@
 		09D8C9F318CEFCDE0099D9D2 /* MobileFresh */ = {
 			isa = PBXGroup;
 			children = (
+				30BB4CE518D8324200B7B8BF /* Util */,
+				30BB4CE118D8310F00B7B8BF /* Domian */,
 				09BBBAB718D046D300B4B884 /* common */,
 				09BBBAB618D046C000B4B884 /* admin */,
 				09BBBAB518D046AA00B4B884 /* donater */,
@@ -261,6 +274,24 @@
 				09D8CA1518CEFCDF0099D9D2 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		30BB4CE118D8310F00B7B8BF /* Domian */ = {
+			isa = PBXGroup;
+			children = (
+				30BB4CE218D8312000B7B8BF /* Node.h */,
+				30BB4CE318D8312000B7B8BF /* Node.m */,
+			);
+			name = Domian;
+			sourceTree = "<group>";
+		};
+		30BB4CE518D8324200B7B8BF /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				30BB4CE618D8325E00B7B8BF /* MobileFreshUtil.h */,
+				30BB4CE718D8325E00B7B8BF /* MobileFreshUtil.m */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -373,15 +404,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30BB4CE818D8325E00B7B8BF /* MobileFreshUtil.m in Sources */,
 				09D8CA0418CEFCDE0099D9D2 /* ViewController.m in Sources */,
 				09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */,
 				09BBBAB418CFF84800B4B884 /* PickupDetailsViewController.m in Sources */,
 				5A21086918D345F700C2D60C /* Annotation.m in Sources */,
 				09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */,
+				30BB4CE418D8312000B7B8BF /* Node.m in Sources */,
 				09340DEF18D0BF28008DC7FA /* NodeListTableViewController.m in Sources */,
 				09D8C9FE18CEFCDE0099D9D2 /* AppDelegate.m in Sources */,
 				09D8C9FA18CEFCDE0099D9D2 /* main.m in Sources */,
 				09BBBABA18D046FB00B4B884 /* SignupViewController.m in Sources */,
+				30BB4CEB18D8348200B7B8BF /* NodeCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

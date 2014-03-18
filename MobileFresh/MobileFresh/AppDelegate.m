@@ -38,12 +38,12 @@
 }
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-    NSLog(@"%@", @"Core location has a position.");
+//    NSLog(@"%@", @"Core location has a position.");
 }
 - (void) locationManager:(CLLocationManager *)manager
         didFailWithError:(NSError *)error
 {
-    NSLog(@"%@", @"Core location can't get a fix.");
+//    NSLog(@"%@", @"Core location can't get a fix.");
 }
 - (void)applicationWillResignActive:(UIApplication *)application
 {

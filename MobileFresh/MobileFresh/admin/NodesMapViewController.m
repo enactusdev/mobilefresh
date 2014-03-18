@@ -8,12 +8,13 @@
 
 #import "NodesMapViewController.h"
 #import "AppDelegate.h"
+#import "Node.h"
 @interface NodesMapViewController ()
 
 @end
 
 @implementation NodesMapViewController
-@synthesize nodesMapView;
+@synthesize nodesMapView,nodesArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -26,7 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self getCurrentLocation];
     self.nodesMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height)];
     self.nodesMapView.mapType = MKMapTypeStandard;
@@ -36,16 +36,6 @@
     
     //Annotation
 
-    CLLocationCoordinate2D annotationCoord;
-    annotationCoord.latitude = 47.640071;
-    annotationCoord.longitude = -122.129598;
-    MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
-    annotationPoint.coordinate = annotationCoord;
-    annotationPoint.title = @"Microsoft";
-    annotationPoint.subtitle = @"Microsoft's headquarters";
-    [nodesMapView addAnnotation:annotationPoint];
-    
-    
     //TODO
     //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
     //TODO
@@ -59,7 +49,10 @@
     // Do any additional setup after loading the view.
 }
 
-
+-(void)getShortestPath
+{
+    
+}
 -(void)getCurrentLocation
 {
     AppDelegate *appDel =(AppDelegate *)[[UIApplication sharedApplication]delegate];
@@ -91,16 +84,120 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-    [nodesMapView setRegion:[nodesMapView regionThatFits:region] animated:YES];
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate = userLocation.coordinate;
-    point.title = @"Where am I?";
-    point.subtitle = @"I'm here!!!";
-    [nodesMapView addAnnotation:point];
+    NSInteger count = 0;
+    for (Node *node in nodesArray) {
+        if(node.isNodeSelected){
+            MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+            annotationPoint.coordinate = CLLocationCoordinate2DMake(node.latitude, node.longitude);
+            annotationPoint.title = @"Is Food Collected";
+            [nodesMapView addAnnotation:annotationPoint];
+            count ++;
+        }
+    }
+    
+    // Set Mak Visible Region
+    [self setMapViewRegion:userLocation];
+    
+    
+    [self showLines:count+1 userLocation:userLocation];
 }
 
 
+- (void)showLines:(NSInteger)count  userLocation:(MKUserLocation *)userLocation{
+//    CLLocationCoordinate2D *pointsCoordinate = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * count);
+    MKMapPoint *pointsCoordinate = (MKMapPoint *)malloc(sizeof(MKMapPoint) * count);
+    NSInteger i = 1;
+    pointsCoordinate[0] = MKMapPointForCoordinate(CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude));
+    for (Node *node in nodesArray) {
+        if(node.isNodeSelected){
+            pointsCoordinate[i] = MKMapPointForCoordinate(CLLocationCoordinate2DMake(node.latitude, node.longitude));
+            i ++;
+        }
+    }
+    
+    
+    MKPolyline *polyline = [MKPolyline polylineWithPoints:pointsCoordinate count:count];
+    free(pointsCoordinate);
+    
+    [nodesMapView addOverlay:polyline];
+}
+- (MKPolylineRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay{
+    
+    // create a polylineView using polyline _overlay object
+    MKPolylineRenderer *polylineView = [[MKPolylineRenderer alloc] initWithPolyline:overlay];
+    
+    polylineView.strokeColor =  [UIColor blackColor];   // applying line-width
+    polylineView.lineWidth = 5.0;
+    polylineView.lineDashPattern =  @[@8, @10];
+    polylineView.alpha = 0.5;
+    
+    return polylineView;
+}
+
+-(void)setMapViewRegion:(MKUserLocation *)userLocation
+{
+    // MapView Visible Range
+    double miles = 10.0;
+    double scalingFactor = ABS( (cos(2 * M_PI * userLocation.coordinate.latitude / 360.0) ));
+    
+    // Create Span region
+    MKCoordinateSpan span = MKCoordinateSpanMake((miles/69.0), (miles/(scalingFactor * 69.0)));
+    
+    // Create Region to be set
+    MKCoordinateRegion region = MKCoordinateRegionMake(userLocation.coordinate, span);
+    
+    [nodesMapView setRegion:region animated:YES];
+}
+
+#define OO 2000000;
+
+int tsp(int **adjMatrix, int numberPoints)
+{
+    for (int i = 0; i < numberPoints; i++)
+        for (int j = 0; j < numberPoints; j++)
+            for (int k = 0; k < numberPoints; k++)
+                if (adjMatrix[i][k] + adjMatrix[k][j] < adjMatrix[i][j])
+                    adjMatrix[i][j] = adjMatrix[i][k] + adjMatrix[k][j];
+    
+    int min = OO;
+    
+    for (int i = 0; i < numberPoints; i++)
+        for (int j = 0; j < numberPoints; j++)
+            if (adjMatrix[i][j] + adjMatrix[j][i] < min)
+                min = adjMatrix[i][j] + adjMatrix[j][i];
+    
+    return min;
+}
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+    if(![view.annotation isKindOfClass:[MKUserLocation class]])
+    {
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button.frame = CGRectMake(5.0, 5.0, 25, 25);
+        [button setTitle:@"OK" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(checkin) forControlEvents:UIControlEventTouchUpInside];
+        [view.superview addSubview:button];
+    }
+}
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+//    MKAnnotationView *annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"pin"];
+//    
+//    // Button
+////    UIButton *button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+////    button.frame = CGRectMake(0, 0, 23, 23);
+////    annotationView.rightCalloutAccessoryView = button;
+//    
+//    // Image and two labels
+//    UIView *leftCAV = [[UIView alloc] initWithFrame:CGRectMake(0,0,23,23)];
+////    [leftCAV addSubview : yourImageView];
+////    [leftCAV addSubview : yourFirstLabel];
+////    [leftCAV addSubview : yourSecondLabel];
+//    annotationView.leftCalloutAccessoryView = leftCAV;
+//    
+//    annotationView.canShowCallout = YES;
+//    
+//    return annotationView;
+//}
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
    // self.searchButton.hidden = NO;
 }
