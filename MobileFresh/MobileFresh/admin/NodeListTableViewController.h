@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "NodesMapViewController.h"
-
-@interface NodeListTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>
+#import "Node.h"
+#import "NodeCell.h"
+@interface NodeListTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>{
+    NSMutableArray *nodesArray;
+}
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end

@@ -11,5 +11,5 @@
 #import "Annotation.h"
 @interface NodesMapViewController : UIViewController<MKMapViewDelegate>
 @property (strong, nonatomic) MKMapView *nodesMapView;
-
+@property (strong, nonatomic) NSArray *nodesArray;
 @end
