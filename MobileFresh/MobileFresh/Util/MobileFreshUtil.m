@@ -20,4 +20,13 @@
     
     return label;
 }
+
+// Check Null Value
++(id)nullValue:(id)val{
+    if(val == [NSNull null])
+        return nil;
+    else
+        return val;
+}
+
 @end

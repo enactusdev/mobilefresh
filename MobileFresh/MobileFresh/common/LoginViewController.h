@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#define ServerAddress  @"http://192.168.1.24:8089/mobilefresh/MobileApis/test.php?method="
 
 @interface LoginViewController : UIViewController<UITextFieldDelegate>
 {
-     NSMutableData           *_responseData;
+    NSMutableData           *_responseData;
    
     NSMutableData *responseData;
     NSURLConnection *conn;

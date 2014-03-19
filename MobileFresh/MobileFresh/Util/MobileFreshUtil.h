@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface MobileFreshUtil : NSObject
-
++(id)nullValue:(id)val;
 +(UILabel *)labelWithFrame:(CGRect)frame title:(NSString *)title;
 @end

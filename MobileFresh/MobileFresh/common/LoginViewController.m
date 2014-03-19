@@ -7,7 +7,8 @@
 //
 
 #import "LoginViewController.h"
-
+#import "MobileFreshConstant.h"
+#import "MobileFreshUtil.h"
 @interface LoginViewController ()
 
 @end
@@ -62,7 +63,7 @@
         NSMutableURLRequest *request = nil;
         
         strRequest = [NSString stringWithFormat:@"&email=%@&password=%@",userName.text,password.text];
-        NSString *urlString = [NSString stringWithFormat:@"%@signin&format=json",ServerAddress];
+        NSString *urlString = [NSString stringWithFormat:@"%@signin&format=json",SERVER_ADDRESS];
     
     urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
     url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -102,6 +103,8 @@
 }
 -(BOOL)checkTextFieldVal
 {
+    [password resignFirstResponder];
+    [userName resignFirstResponder];
     if([password.text length]==0)
     {
         [[[UIAlertView alloc] initWithTitle:@"Missing Information"
@@ -202,17 +205,16 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     // The request is complete and data has been received
     // You can parse the stuff in your instance variable now
-//    NSString *htmlSTR = [[NSString alloc] initWithData:responseData
-//                                              encoding:NSUTF8StringEncoding];
     
     NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:nil];
-      if(resultDict)
+    if(resultDict)
     {
-        
-        NSLog(@"connected Successfully");
-        
-        if ([[resultDict valueForKey:@"message"] isEqualToString:@"admin signed in"]) {
+        if ([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"admin signed in"]) {
             [self performSegueWithIdentifier:@"adminLogin" sender:self];
+        }
+        else
+        {
+            [self performSegueWithIdentifier:@"userLogin" sender:self];
         }
     }
     
