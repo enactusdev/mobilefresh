@@ -10,7 +10,7 @@
 
 @implementation Node
 @synthesize title,latitude,longitude,isNodeSelected;
-@synthesize location,foodType,time,idStr;
+@synthesize location,foodType,time,idStr,distance;
 
 -(id)initWithNodDict:(NSDictionary *)nodeDict
 {

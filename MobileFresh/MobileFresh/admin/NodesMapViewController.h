@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "Annotation.h"
 #import "CustomAnnotation.h"
+#import "Node.h"
 @interface NodesMapViewController : UIViewController<MKMapViewDelegate,UIAlertViewDelegate>
 {
     MKMapView *_nodesMapView;
@@ -17,10 +18,13 @@
     CustomAnnotation *annotationView;
     NSString *foodTypeStr;
     
-    NSMutableArray *titleArray;
-
+    NSMutableArray *distanceArray;
+    
+    Node *fromNode,*toNode,*sourceNode;
+    
+    NSMutableArray *shortestDistanceArray;
 }
 @property (strong, nonatomic) MKMapView *nodesMapView;
 @property (nonatomic, strong) MKAnnotationView *selectedAnnotationView;
-@property (strong, nonatomic) NSArray *nodesArray;
+@property (strong, nonatomic) NSMutableArray *nodesArray;
 @end

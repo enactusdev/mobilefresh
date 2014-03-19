@@ -71,7 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="739" y="49"/>
+            <point key="canvasLocation" x="-469" y="-351"/>
         </scene>
         <!--View Controller - Donate Food-->
         <scene sceneID="Mip-cz-Qxl">
@@ -119,7 +119,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="muu-5h-0V3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1341" y="43"/>
+            <point key="canvasLocation" x="341" y="-569"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="y7u-MW-trz">
@@ -229,7 +229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpy-vQ-QsY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1153" y="734"/>
+            <point key="canvasLocation" x="-135" y="566"/>
         </scene>
         <!--Pickup Details View Controller - Pickup Details-->
         <scene sceneID="sSz-Nb-ixp">
@@ -310,7 +310,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OPn-yo-eEA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2794" y="-196"/>
+            <point key="canvasLocation" x="1034" y="-217"/>
         </scene>
         <!--Node List Table View Controller-->
         <scene sceneID="5Gc-8F-Ac8">
@@ -334,7 +334,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             </connections>
                         </button>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nodeCell" rowHeight="44" id="FsR-o1-jgh" customClass="NodeCell">
+                            <tableViewCell hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="nodeCell" rowHeight="44" id="FsR-o1-jgh" customClass="NodeCell">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FsR-o1-jgh" id="tFJ-LX-3Ks">
@@ -355,16 +355,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Gh2-s2-blE">
-                                            <rect key="frame" x="500" y="0.0" width="46" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <state key="normal" title="Button">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <segue destination="w88-Z9-xpc" kind="push" identifier="MapView" id="ai8-Tp-cmJ"/>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
@@ -385,11 +375,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" id="AVl-gS-Hmh"/>
                     <connections>
                         <outlet property="tableView" destination="c4G-Qk-KIP" id="jyH-XO-qYB"/>
+                        <segue destination="w88-Z9-xpc" kind="push" identifier="MapView" id="lNe-Qc-4Ad"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vex-n5-HSJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="793" y="839"/>
+            <point key="canvasLocation" x="737" y="559"/>
         </scene>
         <!--Nodes Map View Controller-->
         <scene sceneID="Bv5-vP-ow7">
@@ -404,7 +395,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvX-IE-KLJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2637" y="622"/>
+            <point key="canvasLocation" x="1253" y="550"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="5ac-gA-bDd">
@@ -435,7 +426,7 @@ Thank You</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uz3-6W-jcz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3267" y="-108"/>
+            <point key="canvasLocation" x="1067" y="-1076"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5MH-5k-Cco">
@@ -453,7 +444,7 @@ Thank You</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Aq-xB-siY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="572" y="63"/>
+            <point key="canvasLocation" x="-796" y="-361"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -462,8 +453,8 @@ Thank You</string>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1M0-hi-fgr"/>
-        <segue reference="fbL-Gg-sPf"/>
+        <segue reference="vu7-u4-BEx"/>
         <segue reference="Bhy-Rh-8gw"/>
+        <segue reference="YJA-PT-ZoS"/>
     </inferredMetricsTieBreakers>
 </document>

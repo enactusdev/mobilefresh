@@ -58,7 +58,7 @@
 
 -(void)getNodeList:(NSArray *)nodeListArray
 {
-    NSLog(@"Nodes Array--%@",nodeListArray);
+//    NSLog(@"Nodes Array--%@",nodeListArray);
     
     nodesArray = [[NSMutableArray alloc] initWithArray:nodeListArray];
     
@@ -106,12 +106,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NodeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"nodeCell" forIndexPath:indexPath];
+    
+    NSString *CellIdentifier = [NSString stringWithFormat:@"Cell-%d.%d",indexPath.section,indexPath.row];
+
+//    NodeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    NodeCell *cell =[[NodeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier delegate:self];
+    
     Node *node = [nodesArray objectAtIndex: indexPath.row];
     cell.nodeSwitch.tag = indexPath.row;
     cell.title.text = node.title;
-    // Configure the cell...
-    
+    if (cell == nil) {
+        
+        // Configure the cell...
+        
+    }
     return cell;
 }
 
@@ -129,7 +138,13 @@
 {
     if ([segue.identifier isEqualToString:@"MapView"]) {
         NodesMapViewController *controller = (NodesMapViewController *)segue.destinationViewController;
-        controller.nodesArray = nodesArray;
+        NSMutableArray *selectedNodeArray= [[NSMutableArray alloc] init];
+        for (Node *node in nodesArray) {
+            if ([node isNodeSelected]) {
+                [selectedNodeArray addObject:node];
+            }
+        }
+        controller.nodesArray = selectedNodeArray;
     }
 }
 

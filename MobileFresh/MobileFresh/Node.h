@@ -16,10 +16,13 @@
     
     NSString *idStr;
     NSString *location,*foodType,*time;
+    CGFloat distance;
 }
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,assign) CGFloat latitude,longitude;
 @property (nonatomic, assign)BOOL isNodeSelected;
+@property (nonatomic, assign)CGFloat distance;
+
 
 
 @property (nonatomic,copy)NSString *location,*foodType,*time,*idStr;

@@ -36,11 +36,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    titleArray = [[NSMutableArray alloc] init];
+    distanceArray = [[NSMutableArray alloc] init];
+    shortestDistanceArray = [[NSMutableArray alloc] init];
+    NSLog(@"Node Array --%@",nodesArray);
     [self addMapView];
     [self getCurrentLocation];
     
     [self addAnnotationsWithLatitudeLongitude];
+    [self getShortestPath];
     //Annotation
 
     //TODO
@@ -71,9 +74,144 @@
 }
 -(void)getShortestPath
 {
+    distanceArray = [self getShortestDistanceArrayFromCurrentLocation];
+    if (distanceArray.count) {
+        sourceNode =[distanceArray objectAtIndex:0];
+        NSLog(@"surce distance---%lf",sourceNode.distance);
+        [shortestDistanceArray addObject:sourceNode];
+        [nodesArray removeObject:sourceNode];
+    }
     
+    [self getShortestPathFromNodes];
 }
 
+
+-(void)getShortestPathFromNodes
+{
+    NSMutableArray *distanceNodeArray = [[NSMutableArray alloc] init];
+    if (nodesArray.count == 0) {
+        return;
+    }
+    for (Node *node in nodesArray) {
+        if (node.isNodeSelected) {
+            
+            double distance = [MobileFreshUtil calculateDistanceWitLat:sourceNode.latitude fromLongitude:sourceNode.longitude toLat:node.latitude toLong:node.longitude];
+            NSLog(@"distance---%lf",distance);
+            node.distance = distance;
+            [distanceNodeArray addObject:node];
+        }
+    }
+    
+    distanceArray = distanceNodeArray;
+    if (distanceArray.count) {
+        sourceNode =[distanceArray objectAtIndex:0];
+        [shortestDistanceArray addObject:sourceNode];
+        [nodesArray removeObject:sourceNode];
+    }
+    [self getShortestPathFromNodes];
+}
+-(NSMutableArray *)getShortestDistanceArrayFromCurrentLocation
+{
+//    NSMutableArray *distanceMuttArray = [[NSMutableArray alloc] init];
+    NSMutableArray *distanceNodeArray = [[NSMutableArray alloc] init];
+    AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    for (Node *node in nodesArray) {
+        if (node.isNodeSelected) {
+            
+            double distance = [MobileFreshUtil calculateDistanceWitLat:appDel.locationManager.location.coordinate.latitude fromLongitude:appDel.locationManager.location.coordinate.longitude toLat:node.latitude toLong:node.longitude];
+            NSLog(@"distance---%lf",distance);
+            node.distance = distance;
+//            [distanceMuttArray addObject:[NSString stringWithFormat:@"%lf",distance]];
+            [distanceNodeArray addObject:node];
+        }
+    }
+    
+    return [self sortArray:distanceArray];
+}
+
+-(NSMutableArray *)sortArray:(NSMutableArray *)distanceNodeArray
+{
+    [distanceNodeArray sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Node *node1 = (Node *)obj1;
+        Node *node2 = (Node *)obj2;
+        
+        NSString *str1 = [NSString stringWithFormat:@"%lf",node1.distance ];
+        NSString *str2 = [NSString stringWithFormat:@"%lf",node2.distance ];
+        return [str1 caseInsensitiveCompare:str2];
+    }];
+    
+    return distanceNodeArray;
+}
+//-(void)dijkstraShortestPath
+//{
+//    int rank = 0;
+//    int[,] L;
+//    int[] C;
+//    int[] D;
+//    private int trank = 0;
+//    public Dijkstra(int paramRank,int [,]paramArray)
+//    {
+//        L = new int[paramRank, paramRank];
+//        C = new int[paramRank];
+//        D = new int[paramRank];
+//        rank = paramRank;
+//        for (int i = 0; i < rank; i++)
+//        {
+//            for (int j = 0; j < rank; j++) {
+//                L[i, j] = paramArray[i, j];
+//            }
+//        }
+//        
+//        for (int i = 0; i < rank; i++)
+//        {
+//            C[i] = i;
+//        }
+//        C[0] = -1;
+//        for (int i = 1; i < rank; i++)
+//            D[i] = L[0, i];
+//    }
+//    public void DijkstraSolving()
+//    {
+//        int minValue = Int32.MaxValue;
+//        int minNode = 0;
+//        for (int i = 0; i < rank; i++)
+//        {
+//            if (C[i] == -1)
+//                continue;
+//            if (D[i] > 0 && D[i] < minValue)
+//            {
+//                minValue = D[i];
+//                minNode = i;
+//            }
+//        }
+//        C[minNode] = -1;
+//        for (int i = 0; i < rank; i++)
+//        {
+//            if (L[minNode, i] < 0)
+//                continue;
+//            if (D[i] < 0) {
+//                D[i] = minValue + L[minNode, i];
+//                continue;
+//            }
+//            if ((D[minNode] + L[minNode, i]) < D[i])
+//                D[i] = minValue+ L[minNode, i];
+//        }
+//    }
+//    public void Run()
+//    {
+//        for (trank = 1; trank >rank; trank++)
+//        {
+//            DijkstraSolving();
+//            Console.WriteLine("iteration" + trank);
+//            for (int i = 0; i < rank; i++)
+//                Console.Write(D[i] + " ");
+//            Console.WriteLine("");
+//            for (int i = 0; i < rank; i++)
+//                Console.Write(C[i] + " ");
+//            Console.WriteLine("");
+//        }
+//    }
+//}
 
 -(void)getCurrentLocation
 {
@@ -138,14 +276,13 @@
         
         //setting location to annotation
         [annotation setCoordinate:(location)];
-        [annotation setTitle:node.title];
-        //setting address
-        [annotation setSubtitle:@"Does Food Collected"];
+//        [annotation setTitle:node.title];
+//        //setting address
+//        [annotation setSubtitle:@"Does Food Collected"];
         
         if(node.isNodeSelected){
         //adding annotations
             [self.nodesMapView addAnnotation:annotation];
-            [titleArray addObject:node.title];
             count ++;
         }
     }
@@ -155,6 +292,7 @@
     
     [self showLines:count+1 userLocation:(MKUserLocation *)self.appDel.locationManager.location];
 }
+/*
 //setting callout view
 - (MKAnnotationView *)mapView:(MKMapView *)sender viewForAnnotation:(id < MKAnnotation >)annotationPoint
 {
@@ -197,11 +335,38 @@
     
     return aView;
 }
+ */
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
+    //setting left image
+    NSInteger forCount =0;
+    for (int i=0; i<[nodesArray count]; i++)
+    {
+        Node *node =[nodesArray objectAtIndex:i];
+        if ((view.annotation.coordinate.latitude==node.latitude) &&(view.annotation.coordinate.longitude==node.longitude))
+        {
+            if(node.isNodeSelected){
+//                UILabel *titleLabel = [MobileFreshUtil labelWithFrame:CGRectZero title:node.idStr];
+//                titleLabel.backgroundColor =[UIColor clearColor];
+                if(![view.annotation isKindOfClass:[MKUserLocation class]])
+                    [self foodPickOption:node];
+                
+                forCount = i;
+                break;
+            }
+        }
+        
+    }
+    if (forCount<nodesArray.count) {
+        
+        toNode = [nodesArray objectAtIndex:forCount+1];
+    }
+    else
+        
+        toNode = [nodesArray objectAtIndex:forCount];
 }
 
-
+/*
 // accesory button clicked
 - (void)mapView:(MKMapView *)mapViewDisplay annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
@@ -226,6 +391,7 @@
     }
     
 }
+ */
 
 - (void)showLines:(NSInteger)count  userLocation:(MKUserLocation *)userLocation{
 //    CLLocationCoordinate2D *pointsCoordinate = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * count);
@@ -292,10 +458,13 @@ int tsp(int **adjMatrix, int numberPoints)
     
     return min;
 }
--(void)foodPickOption:(NSString *)nodeStr
+-(void)foodPickOption:(Node *)node
 {
-    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:@"Food Collected ?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"YES",@"NO", nil];
-    foodTypeStr= nodeStr;
+//    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Driving Direction",@"Food Collected",@"Food Not Collected", nil];
+    
+    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Food Collected",@"Food Not Collected", nil];
+    foodTypeStr= node.idStr;
+    fromNode = node;
     [alertView show];
 }
 
@@ -308,17 +477,45 @@ int tsp(int **adjMatrix, int numberPoints)
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"string---%d",buttonIndex);
-    if (buttonIndex > 0) {
+    if (buttonIndex > 1) {
         // yes
         [self updateStatus:buttonIndex];
     }
+    else if(buttonIndex ==1)
+    {
+        // show direction
+//        
+//        MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+//        [request setSource:[[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:nil]]];
+//        [request setDestination:[[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:nil]]];
+//        [request setTransportType:MKDirectionsTransportTypeAny]; // This can be limited to automobile and walking directions.
+//        [request setRequestsAlternateRoutes:YES]; // Gives you several route options.
+//        MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+//        [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+//            if (!error) {
+//                for (MKRoute *route in [response routes]) {
+//                    [self.nodesMapView addOverlay:[route polyline] level:MKOverlayLevelAboveRoads]; // Draws the route above roads, but below labels.
+//                    // You can also get turn-by-turn steps, distance, advisory notices, ETA, etc by accessing various route properties.
+//                }
+//            }
+//        }];
+    }
 }
-
+//- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
+//{
+//    if ([overlay isKindOfClass:[MKPolyline class]]) {
+//        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+//        [renderer setStrokeColor:[UIColor blueColor]];
+//        [renderer setLineWidth:5.0];
+//        return renderer;
+//    }
+//    return nil;
+//}
 
 -(void)updateStatus:(NSInteger)forIndex
 {
     NSString *statusStr = @"";
-    if (forIndex == 1) {
+    if (forIndex == 2) {
         statusStr = @"received";
     }
     else

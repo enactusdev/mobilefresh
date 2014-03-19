@@ -12,4 +12,6 @@
 @property (strong, nonatomic) IBOutlet UISwitch *nodeSwitch;
 @property (strong, nonatomic) IBOutlet UILabel *title;
 @property (nonatomic, assign) BOOL isNodeSelected;
+
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier delegate:(id)delegate;
 @end
