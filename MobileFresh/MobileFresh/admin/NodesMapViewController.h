@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "Annotation.h"
+#import "CustomAnnotation.h"
 @interface NodesMapViewController : UIViewController<MKMapViewDelegate,UIAlertViewDelegate>
 {
     MKMapView *_nodesMapView;
     CLLocationCoordinate2D location;
-    MKAnnotationView *annotationView;
+    CustomAnnotation *annotationView;
+    NSString *foodTypeStr;
+    
+    NSMutableArray *titleArray;
 
 }
 @property (strong, nonatomic) MKMapView *nodesMapView;

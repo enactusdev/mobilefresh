@@ -12,6 +12,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import "MobileFreshUtil.h"
+#import "CustomAnnotation.h"
+#import "UpdateStatusInt.h"
 @interface NodesMapViewController ()
 @property (nonatomic, strong) AppDelegate *appDel;
 @end
@@ -34,6 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    titleArray = [[NSMutableArray alloc] init];
     [self addMapView];
     [self getCurrentLocation];
     
@@ -138,9 +141,11 @@
         [annotation setTitle:node.title];
         //setting address
         [annotation setSubtitle:@"Does Food Collected"];
+        
         if(node.isNodeSelected){
         //adding annotations
             [self.nodesMapView addAnnotation:annotation];
+            [titleArray addObject:node.title];
             count ++;
         }
     }
@@ -157,10 +162,13 @@
     
     MKPinAnnotationView *aView = (MKPinAnnotationView *)[sender
                                                          dequeueReusableAnnotationViewWithIdentifier:reuseId];
+    NSLog(@"aView--%@",aView);
     if (aView == nil && ![annotationPoint isKindOfClass:[MKUserLocation class]])
     {
-        aView =[[MKPinAnnotationView alloc]initWithAnnotation:annotationPoint reuseIdentifier:reuseId];
-        aView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        aView =[[CustomAnnotation alloc]initWithAnnotation:annotationPoint reuseIdentifier:reuseId];
+        aView.tag = 5;
+        UIButton *button =[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        aView.rightCalloutAccessoryView =button;
         aView.canShowCallout = YES;
     }
     else if([annotationPoint isKindOfClass:[MKUserLocation class]])
@@ -171,20 +179,21 @@
     }
     aView.annotation = annotationPoint;
     //setting left image
-//    for (int i=0; i<[nodesArray count]; i++)
-//    {
-//        Node *node =[nodesArray objectAtIndex:i];
-//        if ((aView.annotation.coordinate.latitude==node.latitude) &&(aView.annotation.coordinate.longitude==node.longitude))
-//        {
-//           if(node.isNodeSelected){
-//               UIImageView *imageView = [[UIImageView alloc] init];
-//               imageView.backgroundColor =[UIColor redColor];
-//               if(![annotationPoint isKindOfClass:[MKUserLocation class]])
+    for (int i=0; i<[nodesArray count]; i++)
+    {
+        Node *node =[nodesArray objectAtIndex:i];
+        if ((aView.annotation.coordinate.latitude==node.latitude) &&(aView.annotation.coordinate.longitude==node.longitude))
+        {
+           if(node.isNodeSelected){
+               UILabel *titleLabel = [MobileFreshUtil labelWithFrame:CGRectZero title:node.idStr];
+               titleLabel.backgroundColor =[UIColor clearColor];
+               if(![annotationPoint isKindOfClass:[MKUserLocation class]])
 //                   aView.leftCalloutAccessoryView=imageView;
-//            }
-//        }
-//        
-//    }
+                   [aView addSubview:titleLabel];
+            }
+        }
+        
+    }
     
     return aView;
 }
@@ -198,10 +207,22 @@
 {
     if(![view.annotation isKindOfClass:[MKUserLocation class]])
     {
-        annotationView=[[MKAnnotationView alloc]init];
-        annotationView=view;
+        annotationView=[[CustomAnnotation alloc]init];
+        annotationView=(CustomAnnotation *)view;
         //creating actions sheet
-        [self foodPickOption];
+        NSLog(@"Control--%d,%d",control.tag,annotationView.tag);
+        NSString *nodeID = @"";
+        for (id view in annotationView.subviews) {
+            if ([view isKindOfClass:[UILabel class]]) {
+                UILabel *label = (UILabel *)view;
+                NSLog(@"title--%@",label.text);
+                nodeID = label.text;
+                break;
+            }
+        }
+        
+//        NSLog(@"annotationView.title--%@",annotationView.title);
+        [self foodPickOption:nodeID];
     }
     
 }
@@ -271,10 +292,10 @@ int tsp(int **adjMatrix, int numberPoints)
     
     return min;
 }
--(void)foodPickOption
+-(void)foodPickOption:(NSString *)nodeStr
 {
     UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:@"Food Collected ?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"YES",@"NO", nil];
-    
+    foodTypeStr= nodeStr;
     [alertView show];
 }
 
@@ -287,8 +308,29 @@ int tsp(int **adjMatrix, int numberPoints)
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"string---%d",buttonIndex);
+    if (buttonIndex > 0) {
+        // yes
+        [self updateStatus:buttonIndex];
+    }
 }
 
+
+-(void)updateStatus:(NSInteger)forIndex
+{
+    NSString *statusStr = @"";
+    if (forIndex == 1) {
+        statusStr = @"received";
+    }
+    else
+        statusStr = @"not received";
+    UpdateStatusInt *updateInt = [[UpdateStatusInt alloc] initWithDelegate:self callback:@selector(updateStatusResponse)];
+    [updateInt updateStatusWithUrl:foodTypeStr status:statusStr];
+}
+
+-(void)updateStatusResponse
+{
+    
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

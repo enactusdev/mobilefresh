@@ -9,13 +9,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MobileFresh/Sync/NodeListInt.m"
-            timestampString = "416902621.07048"
+            filePath = "MobileFresh/admin/NodesMapViewController.m"
+            timestampString = "416917518.58187"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "-receiveNodes:"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "-foodPickOption:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MobileFresh/admin/NodesMapViewController.m"
+            timestampString = "416917518.58187"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "-updateStatusResponse"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

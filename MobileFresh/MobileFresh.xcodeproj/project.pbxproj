@@ -48,6 +48,7 @@
 		30BB4CF318D9613100B7B8BF /* MobileFreshConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CF218D9613100B7B8BF /* MobileFreshConstant.m */; };
 		30BB4CF618D961CC00B7B8BF /* NodeListInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CF518D961CC00B7B8BF /* NodeListInt.m */; };
 		30BB4D0318D9851100B7B8BF /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4D0218D9851100B7B8BF /* CustomAnnotation.m */; };
+		30BB4D0618D9917100B7B8BF /* UpdateStatusInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4D0518D9917100B7B8BF /* UpdateStatusInt.m */; };
 		5A21086618D31B4B00C2D60C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086918D345F700C2D60C /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21086818D345F700C2D60C /* Annotation.m */; };
 /* End PBXBuildFile section */
@@ -120,6 +121,8 @@
 		30BB4CF518D961CC00B7B8BF /* NodeListInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeListInt.m; path = Sync/NodeListInt.m; sourceTree = "<group>"; };
 		30BB4D0118D9851100B7B8BF /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomAnnotation.h; path = views/MapView/CustomAnnotation.h; sourceTree = "<group>"; };
 		30BB4D0218D9851100B7B8BF /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomAnnotation.m; path = views/MapView/CustomAnnotation.m; sourceTree = "<group>"; };
+		30BB4D0418D9917100B7B8BF /* UpdateStatusInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UpdateStatusInt.h; path = Sync/UpdateStatusInt.h; sourceTree = "<group>"; };
+		30BB4D0518D9917100B7B8BF /* UpdateStatusInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UpdateStatusInt.m; path = Sync/UpdateStatusInt.m; sourceTree = "<group>"; };
 		5A21086518D31B4B00C2D60C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5A21086718D345F700C2D60C /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		5A21086818D345F700C2D60C /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				30BB4CEE18D95F9100B7B8BF /* IntAbstract.m */,
 				30BB4CF418D961CC00B7B8BF /* NodeListInt.h */,
 				30BB4CF518D961CC00B7B8BF /* NodeListInt.m */,
+				30BB4D0418D9917100B7B8BF /* UpdateStatusInt.h */,
+				30BB4D0518D9917100B7B8BF /* UpdateStatusInt.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -449,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30BB4CF618D961CC00B7B8BF /* NodeListInt.m in Sources */,
+				30BB4D0618D9917100B7B8BF /* UpdateStatusInt.m in Sources */,
 				30BB4CE818D8325E00B7B8BF /* MobileFreshUtil.m in Sources */,
 				09D8CA0418CEFCDE0099D9D2 /* ViewController.m in Sources */,
 				09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */,
