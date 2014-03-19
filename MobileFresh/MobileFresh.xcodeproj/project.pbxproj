@@ -47,6 +47,7 @@
 		30BB4CEF18D95F9100B7B8BF /* IntAbstract.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CEE18D95F9100B7B8BF /* IntAbstract.m */; };
 		30BB4CF318D9613100B7B8BF /* MobileFreshConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CF218D9613100B7B8BF /* MobileFreshConstant.m */; };
 		30BB4CF618D961CC00B7B8BF /* NodeListInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CF518D961CC00B7B8BF /* NodeListInt.m */; };
+		30BB4D0318D9851100B7B8BF /* CustomAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4D0218D9851100B7B8BF /* CustomAnnotation.m */; };
 		5A21086618D31B4B00C2D60C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086918D345F700C2D60C /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21086818D345F700C2D60C /* Annotation.m */; };
 /* End PBXBuildFile section */
@@ -117,6 +118,8 @@
 		30BB4CF218D9613100B7B8BF /* MobileFreshConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MobileFreshConstant.m; path = Constant/MobileFreshConstant.m; sourceTree = "<group>"; };
 		30BB4CF418D961CC00B7B8BF /* NodeListInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NodeListInt.h; path = Sync/NodeListInt.h; sourceTree = "<group>"; };
 		30BB4CF518D961CC00B7B8BF /* NodeListInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NodeListInt.m; path = Sync/NodeListInt.m; sourceTree = "<group>"; };
+		30BB4D0118D9851100B7B8BF /* CustomAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomAnnotation.h; path = views/MapView/CustomAnnotation.h; sourceTree = "<group>"; };
+		30BB4D0218D9851100B7B8BF /* CustomAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomAnnotation.m; path = views/MapView/CustomAnnotation.m; sourceTree = "<group>"; };
 		5A21086518D31B4B00C2D60C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5A21086718D345F700C2D60C /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		5A21086818D345F700C2D60C /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
@@ -181,6 +184,7 @@
 		09BBBAB618D046C000B4B884 /* admin */ = {
 			isa = PBXGroup;
 			children = (
+				30BB4CF718D9764300B7B8BF /* MapView */,
 				09340DED18D0BF28008DC7FA /* NodeListTableViewController.h */,
 				09340DEE18D0BF28008DC7FA /* NodeListTableViewController.m */,
 				09340DF018D0C799008DC7FA /* NodesMapViewController.h */,
@@ -325,6 +329,15 @@
 			name = Constant;
 			sourceTree = "<group>";
 		};
+		30BB4CF718D9764300B7B8BF /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				30BB4D0118D9851100B7B8BF /* CustomAnnotation.h */,
+				30BB4D0218D9851100B7B8BF /* CustomAnnotation.m */,
+			);
+			name = MapView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -445,6 +458,7 @@
 				09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */,
 				30BB4CE418D8312000B7B8BF /* Node.m in Sources */,
 				30BB4CF318D9613100B7B8BF /* MobileFreshConstant.m in Sources */,
+				30BB4D0318D9851100B7B8BF /* CustomAnnotation.m in Sources */,
 				09340DEF18D0BF28008DC7FA /* NodeListTableViewController.m in Sources */,
 				09D8C9FE18CEFCDE0099D9D2 /* AppDelegate.m in Sources */,
 				09D8C9FA18CEFCDE0099D9D2 /* main.m in Sources */,
