@@ -39,11 +39,14 @@
     distanceArray = [[NSMutableArray alloc] init];
     shortestDistanceArray = [[NSMutableArray alloc] init];
     NSLog(@"Node Array --%@",nodesArray);
+    [self getShortestPath];
+    
+    NSLog(@"Node Array --%@",nodesArray);
+    
     [self addMapView];
     [self getCurrentLocation];
     
     [self addAnnotationsWithLatitudeLongitude];
-    [self getShortestPath];
     //Annotation
 
     //TODO
@@ -83,6 +86,8 @@
     }
     
     [self getShortestPathFromNodes];
+    
+    nodesArray = shortestDistanceArray;
 }
 
 
@@ -126,7 +131,7 @@
         }
     }
     
-    return [self sortArray:distanceArray];
+    return [self sortArray:distanceNodeArray];
 }
 
 -(NSMutableArray *)sortArray:(NSMutableArray *)distanceNodeArray

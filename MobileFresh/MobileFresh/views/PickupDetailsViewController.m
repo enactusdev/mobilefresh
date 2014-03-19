@@ -13,6 +13,7 @@
 @end
 
 @implementation PickupDetailsViewController
+@synthesize foodType,Picker;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -20,7 +21,7 @@
     if (self) {
         // Custom initialization
     }
-    return self;
+        return self;
 }
 
 - (void)viewDidLoad
@@ -28,8 +29,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     NSLog(@"sindei view controller");
-    self.foodType.delegate = self;
-    self.foodType.text = @"modified the text";
+    foodType.delegate = self;
+    foodType.text= @"";
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,8 +43,103 @@
 - (IBAction)submitFoodDetails:(id)sender {
     //TODO
     //post the food pickup details to server
-    [self performSegueWithIdentifier:@"submitFoodPick" sender:self];
+    NSLog(@"submitting");
+    BOOL emptyfoodType=[self checkEmptyFoodType];
+    //Getting the foodtype value
+   if (emptyfoodType)
+    {
+        [self sendSubmitServerRequest];
+    }
+        
+   }
+-(void)sendSubmitServerRequest
+{
+    NSMutableDictionary *offer = [[NSMutableDictionary alloc] init];
+    [offer setObject:foodType.text forKey:@"offerdescription"];
+    
+    //getting value from date picker
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/mm/yyyy HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:Picker.date];
+    NSLog(@"%@",dateString);
+    [offer setObject:dateString forKey:@"usebydate"];
+    //Getting latitude and longitude values
+    [self uploadOffer:offer];
+    //Posting Date time ,foodtype values
+    NSString *strRequest;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newManagedObject
+                                                       options:NSJSONWritingPrettyPrinted error:Nil];
+    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%@&status=%@",foodType.text,dateString,jsonGeocodeString ,@"wating"];
+    SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
+    [submitInt getSubmitList:strRequest];
+
 }
+
+-(void)postFoodData:(NSString *)succesStatus
+{
+    if([succesStatus isEqualToString:@"Success"])
+    {
+        [self performSegueWithIdentifier:@"submitFoodPick" sender:self];
+    }
+    else
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Information of FoodType"
+                                    message:@"Please enter food type"
+                                   delegate:nil
+                          cancelButtonTitle:@"ok"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+-(BOOL) checkEmptyFoodType
+    {
+    if ([foodType.text isEqualToString:@""] )
+    {
+        [[[UIAlertView alloc] initWithTitle:@"Missing Information of FoodType"
+                                    message:@"Please enter food type"
+                                   delegate:nil
+                          cancelButtonTitle:@"ok"
+                          otherButtonTitles:nil] show];
+        return NO;
+        
+    }
+    else
+        return YES;
+
+}
+//
+//- (void)textViewDidEndEditing:(UITextView *)textView
+//{
+//    if ([foodType.text isEqualToString:@""]) {
+//        foodType.text = @"placeholder text here...";
+//        foodType.textColor = [UIColor lightGrayColor]; //optional
+//    }
+//    [foodType resignFirstResponder];
+//}
+
+
+//Getting current Geolocation lat,longitude values
+-(void)uploadOffer:(NSDictionary*) offer
+{
+     NSLog(@"uploading offer");
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+   
+    newManagedObject=[[NSMutableDictionary alloc]init];
+//       if (![[offer objectForKey:@"usebydate"] isEqualToString:@""])
+//       {
+//        [newManagedObject setValue:[offer objectForKey:@"usebydate"] forKey:@"usebydate"];
+    
+           NSString *latString = [NSString stringWithFormat:@"%f",appDelegate.locationManager.location.coordinate.latitude];
+           NSString *lonString = [NSString stringWithFormat:@"%f",appDelegate.locationManager.location.coordinate.longitude];
+           NSLog(@"latString: %@", latString);
+           NSLog(@"lonString: %@", lonString);
+           [newManagedObject setValue:latString forKey:@"latitude"];
+           [newManagedObject setValue:lonString forKey:@"longitude"];
+    
+    
+}
+
 
 ////for moving textview up and down
 
@@ -90,8 +187,11 @@ replacementText:(NSString *)text{
         {
             [self setViewMovedUp:YES];
         }
-//    }
+
+////    }
 }
+
+
 
 //method to move the view up/down whenever the keyboard is shown/dismissed
 -(void)setViewMovedUp:(BOOL)movedUp
