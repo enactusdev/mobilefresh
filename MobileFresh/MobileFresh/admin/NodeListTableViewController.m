@@ -109,17 +109,16 @@
     
     NSString *CellIdentifier = [NSString stringWithFormat:@"Cell-%d.%d",indexPath.section,indexPath.row];
 
-//    NodeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    NodeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
-    NodeCell *cell =[[NodeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier delegate:self];
-    
-    Node *node = [nodesArray objectAtIndex: indexPath.row];
-    cell.nodeSwitch.tag = indexPath.row;
-    cell.title.text = node.title;
     if (cell == nil) {
         
         // Configure the cell...
+        cell =[[NodeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier delegate:self];
         
+        Node *node = [nodesArray objectAtIndex: indexPath.row];
+        cell.nodeSwitch.tag = indexPath.row;
+        cell.title.text = node.title;
     }
     return cell;
 }
