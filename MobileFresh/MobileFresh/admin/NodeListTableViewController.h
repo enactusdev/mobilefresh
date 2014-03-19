@@ -10,9 +10,10 @@
 #import "NodesMapViewController.h"
 #import "Node.h"
 #import "NodeCell.h"
+#import "NodeListInt.h"
 @interface NodeListTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *nodesArray;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-
+-(void)getNodeList:(NSArray *)nodeListArray;
 @end

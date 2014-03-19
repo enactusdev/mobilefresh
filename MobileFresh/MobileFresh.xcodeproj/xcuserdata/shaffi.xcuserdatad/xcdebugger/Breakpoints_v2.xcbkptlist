@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MobileFresh/common/LoginViewController.m"
-            timestampString = "416843351.280316"
+            filePath = "MobileFresh/Sync/NodeListInt.m"
+            timestampString = "416902621.07048"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "-connectionDidFinishLoading:"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "-receiveNodes:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -28,18 +28,19 @@
     [super viewDidLoad];
 
     nodesArray = [[NSMutableArray alloc] init];
-    
-    for (NSInteger i=0; i<6; i++) {
-        Node *node = [[Node alloc] init];
-        node.title = [NSString stringWithFormat:@"Node %d",i];
-        node.isNodeSelected = NO;
-        node.latitude = [[NSString stringWithFormat:@"19.0%d76147",i] floatValue];
-        node.longitude = [[NSString stringWithFormat:@"72.8%d61644",10-i] floatValue];;
-        [nodesArray addObject:node];
-    }
+//    
+//    for (NSInteger i=0; i<6; i++) {
+//        Node *node = [[Node alloc] init];
+//        node.title = [NSString stringWithFormat:@"Node %d",i];
+//        node.isNodeSelected = NO;
+//        node.latitude = [[NSString stringWithFormat:@"19.0%d76147",i] floatValue];
+//        node.longitude = [[NSString stringWithFormat:@"72.8%d61644",10-i] floatValue];;
+//        [nodesArray addObject:node];
+//    }
     //TODO
     //get the list of nodes from server and display them here
     
+    [self getNodesFromAPI];
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -48,14 +49,28 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
+
+-(void)getNodesFromAPI
+{
+    NodeListInt *nodeInt = [[NodeListInt alloc] initWithDelegate:self callback:@selector(getNodeList:)];
+    [nodeInt getNodeList];
+}
+
+-(void)getNodeList:(NSArray *)nodeListArray
+{
+    NSLog(@"Nodes Array--%@",nodeListArray);
+    
+    nodesArray = [[NSMutableArray alloc] initWithArray:nodeListArray];
+    
+    [self.tableView reloadData];
+}
+
 -(void)btnSelected
 {
     [self performSegueWithIdentifier:@"MapView" sender:self];
-//    NodesMapViewController *vc2=[[NodesMapViewController alloc]init];
-//   [self.navigationViewController:vc2 animated:YES completion:nil];
-    
-
 }
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
     return 50;
@@ -63,27 +78,8 @@
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    
-    UIView *newView = [[UIView alloc]initWithFrame:CGRectMake(10, 70, 300, 45)];
-//    UIButton *submit = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//    [submit setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    [submit setTitleColor:[UIColor colorWithWhite:0.0 alpha:0.56] forState:UIControlStateNormal];
-//    
-//    [submit setBackgroundColor:[UIColor grayColor]];
-//    [submit setTitle:@"Next" forState:UIControlStateNormal];
-//    [submit.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
-//    [submit setFrame:CGRectMake(110.0, 15.0, 80.0, 44.0)];
-//    [submit addTarget:self action:@selector(btnSelected) forControlEvents:UIControlEventTouchUpInside];
-//    [newView addSubview:submit];
-    
-    return newView;
+    return [UIView new];
 }
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)updateSwitchAtIndexPath:(UISwitch *)sender {
     NodeCell *cell = (NodeCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:sender.tag inSection:0]];
     Node *node = [nodesArray objectAtIndex:sender.tag];
@@ -97,14 +93,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [nodesArray count];
 }
@@ -126,15 +120,23 @@
 {
     
 }
+
 - (IBAction)nextAction:(UIButton *)sender {
     [self performSegueWithIdentifier:@"MapView" sender:sender];
 }
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"MapView"]) {
         NodesMapViewController *controller = (NodesMapViewController *)segue.destinationViewController;
         controller.nodesArray = nodesArray;
     }
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 /*
