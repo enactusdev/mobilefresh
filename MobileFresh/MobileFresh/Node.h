@@ -14,6 +14,7 @@
     CGFloat latitude,longitude;
     BOOL isNodeSelected;
     
+    NSString *idStr;
     NSString *location,*foodType,*time;
 }
 @property (nonatomic,copy) NSString *title;
@@ -21,7 +22,7 @@
 @property (nonatomic, assign)BOOL isNodeSelected;
 
 
-@property (nonatomic,copy)NSString *location,*foodType,*time;
+@property (nonatomic,copy)NSString *location,*foodType,*time,*idStr;
 
 -(id)initWithNodDict:(NSDictionary *)nodeDict;
 @end

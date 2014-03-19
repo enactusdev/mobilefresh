@@ -10,7 +10,7 @@
 
 @implementation Node
 @synthesize title,latitude,longitude,isNodeSelected;
-@synthesize location,foodType,time;
+@synthesize location,foodType,time,idStr;
 
 -(id)initWithNodDict:(NSDictionary *)nodeDict
 {
@@ -20,9 +20,9 @@
         self.location = [nodeDict valueForKey:@"NodeLocation"];
         self.foodType = [nodeDict valueForKey:@"foodtype"];
         self.time = [nodeDict valueForKey:@"time"];
-        
+        self.idStr = [nodeDict valueForKey:@""];
         NSArray *locationArray = [self.location componentsSeparatedByString:@","];
-        if (locationArray.count) {
+        if (locationArray.count > 1) {
             self.latitude = [[locationArray objectAtIndex:0] floatValue];
             self.longitude = [[locationArray objectAtIndex:1] floatValue];
         }

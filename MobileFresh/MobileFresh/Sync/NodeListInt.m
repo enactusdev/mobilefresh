@@ -20,6 +20,7 @@
     NSMutableArray *nodeList = [[NSMutableArray alloc] init];
     for (NSDictionary *nodeDict in [responseDict valueForKey:@"data"]) {
         Node *node = [[Node alloc] initWithNodDict:nodeDict];
+        node.idStr = [NSString stringWithFormat:@"NODE_%d",[[responseDict valueForKey:@"data"] indexOfObject:nodeDict]];
         [nodeList addObject:node];
     }
     [delegate performSelector:callbackAction withObject:nodeList afterDelay:0];

@@ -9,12 +9,21 @@
 #import "NodesMapViewController.h"
 #import "AppDelegate.h"
 #import "Node.h"
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+#import "MobileFreshUtil.h"
+#import "CustomAnnotation.h"
+#import "UpdateStatusInt.h"
 @interface NodesMapViewController ()
-
+@property (nonatomic, strong) AppDelegate *appDel;
 @end
 
 @implementation NodesMapViewController
-@synthesize nodesMapView,nodesArray;
+@synthesize nodesArray;
+
+
+@synthesize nodesMapView = _nodesMapView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -27,19 +36,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    titleArray = [[NSMutableArray alloc] init];
+    [self addMapView];
     [self getCurrentLocation];
-    self.nodesMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height)];
-    self.nodesMapView.mapType = MKMapTypeStandard;
-    self.nodesMapView.delegate = self;
-    self.nodesMapView.showsUserLocation = YES;
-    [self.view addSubview:self.nodesMapView];
     
+    [self addAnnotationsWithLatitudeLongitude];
     //Annotation
 
     //TODO
     //For all the nodes selected by user in the node list, display a pin on map and a route connecting all those.
+    
     //TODO
     //find the shortest path between these nodes using TSP algorithm. and display the path as per that.
+    
     //TODO
     //User can press a pin. On pressing of the pin ask user to confirm whether she/he has picked the food with three choices - YES, NO, Cancel.
     
@@ -49,14 +58,27 @@
     // Do any additional setup after loading the view.
 }
 
+
+-(void)addMapView
+{
+    // Create and add MapVIew
+    self.nodesMapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height, 320, self.view.frame.size.height-self.navigationController.navigationBar.frame.size.height)];
+    self.nodesMapView.mapType = MKMapTypeStandard;
+    self.nodesMapView.delegate = self;
+    self.nodesMapView.showsUserLocation = YES;
+    [self.view addSubview:self.nodesMapView];
+    
+}
 -(void)getShortestPath
 {
     
 }
+
+
 -(void)getCurrentLocation
 {
-    AppDelegate *appDel =(AppDelegate *)[[UIApplication sharedApplication]delegate];
-    CLLocation *curPos = appDel.locationManager.location;
+    self.appDel =(AppDelegate *)[[UIApplication sharedApplication]delegate];
+    CLLocation *curPos = self.appDel.locationManager.location;
     
     NSString *latitude = [[NSNumber numberWithDouble:curPos.coordinate.latitude] stringValue];
     
@@ -65,41 +87,145 @@
     NSLog(@"Lat: %@", latitude);
     NSLog(@"Long: %@", longitude);
 }
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 
 - (IBAction)zoomToCurrentLocation:(UIBarButtonItem *)sender {
-    MKCoordinateRegion region;
-    region.center.latitude = self.nodesMapView.userLocation.coordinate.latitude;
-    region.center.longitude = self.nodesMapView.userLocation.coordinate.longitude;
-    region.span.latitudeDelta = 0.00725;
-    region.span.longitudeDelta = 0.00725;
+    MKCoordinateRegion region  = MKCoordinateRegionMake(CLLocationCoordinate2DMake(self.nodesMapView.userLocation.coordinate.latitude, self.nodesMapView.userLocation.coordinate.longitude), MKCoordinateSpanMake(0.00725, 0.00725));
     [self.nodesMapView setRegion:region animated:YES];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
+//    NSInteger count = 0;
+////    
+////	self.normalAnnotation = [[MapAnnotation alloc] initWithLatitude:userLocation.coordinate.latitude andLongitude:userLocation.coordinate.longitude];
+////	self.normalAnnotation.title = @"Current Location";
+////	[self.nodesMapView addAnnotation:self.normalAnnotation];
+//    for (Node *node in nodesArray) {
+//        if(node.isNodeSelected){
+//            MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
+//            annotationPoint.coordinate = CLLocationCoordinate2DMake(node.latitude, node.longitude);
+//            [self.nodesMapView addAnnotation:annotationPoint];
+//            
+////            MapAnnotation *customAnnotationObj = [[MapAnnotation alloc] initWithLatitude:node.latitude andLongitude:node.longitude];
+////            [self.nodesMapView addAnnotation:customAnnotationObj];
+//            count ++;
+//        }
+//    }
+//    
+//	
+//    
+//    // Set Mak Visible Region
+//    [self setMapViewRegion:userLocation];
+//    
+//    
+//    [self showLines:count+1 userLocation:userLocation];
+}
+
+
+//adding annotations
+-(void)addAnnotationsWithLatitudeLongitude
+{
     NSInteger count = 0;
-    for (Node *node in nodesArray) {
+
+    Node *node =[[Node alloc]init];
+    for (int i=0; i<[nodesArray count]; i++)
+    {
+        node=[nodesArray objectAtIndex:i];
+        location.latitude = node.latitude;
+        location.longitude = node.longitude;
+        MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+        
+        //setting location to annotation
+        [annotation setCoordinate:(location)];
+        [annotation setTitle:node.title];
+        //setting address
+        [annotation setSubtitle:@"Does Food Collected"];
+        
         if(node.isNodeSelected){
-            MKPointAnnotation *annotationPoint = [[MKPointAnnotation alloc] init];
-            annotationPoint.coordinate = CLLocationCoordinate2DMake(node.latitude, node.longitude);
-//            annotationPoint.title = @"Is Food Collected";
-            [nodesMapView addAnnotation:annotationPoint];
+        //adding annotations
+            [self.nodesMapView addAnnotation:annotation];
+            [titleArray addObject:node.title];
             count ++;
         }
     }
-    
     // Set Mak Visible Region
-    [self setMapViewRegion:userLocation];
+    [self setMapViewRegion:(MKUserLocation *)self.appDel.locationManager.location];
     
     
-    [self showLines:count+1 userLocation:userLocation];
+    [self showLines:count+1 userLocation:(MKUserLocation *)self.appDel.locationManager.location];
+}
+//setting callout view
+- (MKAnnotationView *)mapView:(MKMapView *)sender viewForAnnotation:(id < MKAnnotation >)annotationPoint
+{
+    static NSString *reuseId = @"StandardPin";
+    
+    MKPinAnnotationView *aView = (MKPinAnnotationView *)[sender
+                                                         dequeueReusableAnnotationViewWithIdentifier:reuseId];
+    NSLog(@"aView--%@",aView);
+    if (aView == nil && ![annotationPoint isKindOfClass:[MKUserLocation class]])
+    {
+        aView =[[CustomAnnotation alloc]initWithAnnotation:annotationPoint reuseIdentifier:reuseId];
+        aView.tag = 5;
+        UIButton *button =[UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        aView.rightCalloutAccessoryView =button;
+        aView.canShowCallout = YES;
+    }
+    else if([annotationPoint isKindOfClass:[MKUserLocation class]])
+    {
+        aView =[[MKPinAnnotationView alloc]initWithAnnotation:annotationPoint reuseIdentifier:reuseId];
+        aView.pinColor = MKPinAnnotationColorGreen;
+        aView.canShowCallout = YES;
+    }
+    aView.annotation = annotationPoint;
+    //setting left image
+    for (int i=0; i<[nodesArray count]; i++)
+    {
+        Node *node =[nodesArray objectAtIndex:i];
+        if ((aView.annotation.coordinate.latitude==node.latitude) &&(aView.annotation.coordinate.longitude==node.longitude))
+        {
+           if(node.isNodeSelected){
+               UILabel *titleLabel = [MobileFreshUtil labelWithFrame:CGRectZero title:node.idStr];
+               titleLabel.backgroundColor =[UIColor clearColor];
+               if(![annotationPoint isKindOfClass:[MKUserLocation class]])
+//                   aView.leftCalloutAccessoryView=imageView;
+                   [aView addSubview:titleLabel];
+            }
+        }
+        
+    }
+    
+    return aView;
+}
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
 }
 
+
+// accesory button clicked
+- (void)mapView:(MKMapView *)mapViewDisplay annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    if(![view.annotation isKindOfClass:[MKUserLocation class]])
+    {
+        annotationView=[[CustomAnnotation alloc]init];
+        annotationView=(CustomAnnotation *)view;
+        //creating actions sheet
+        NSLog(@"Control--%d,%d",control.tag,annotationView.tag);
+        NSString *nodeID = @"";
+        for (id view in annotationView.subviews) {
+            if ([view isKindOfClass:[UILabel class]]) {
+                UILabel *label = (UILabel *)view;
+                NSLog(@"title--%@",label.text);
+                nodeID = label.text;
+                break;
+            }
+        }
+        
+//        NSLog(@"annotationView.title--%@",annotationView.title);
+        [self foodPickOption:nodeID];
+    }
+    
+}
 
 - (void)showLines:(NSInteger)count  userLocation:(MKUserLocation *)userLocation{
 //    CLLocationCoordinate2D *pointsCoordinate = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D) * count);
@@ -117,7 +243,7 @@
     MKPolyline *polyline = [MKPolyline polylineWithPoints:pointsCoordinate count:count];
     free(pointsCoordinate);
     
-    [nodesMapView addOverlay:polyline];
+    [self.nodesMapView addOverlay:polyline];
 }
 - (MKPolylineRenderer *)mapView:(MKMapView *)mapView viewForOverlay:(id)overlay{
     
@@ -144,7 +270,7 @@
     // Create Region to be set
     MKCoordinateRegion region = MKCoordinateRegionMake(userLocation.coordinate, span);
     
-    [nodesMapView setRegion:region animated:YES];
+    [self.nodesMapView setRegion:region animated:YES];
 }
 
 #define OO 2000000;
@@ -166,49 +292,14 @@ int tsp(int **adjMatrix, int numberPoints)
     
     return min;
 }
-//
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-//{
-//    static NSString *identifier = @"MapPoint";
-//    
-//    if (![annotation isKindOfClass:[MKUserLocation class]]) {
-//        MKPinAnnotationView *annotationView = (MKPinAnnotationView *) [nodesMapView dequeueReusableAnnotationViewWithIdentifier:identifier];
-//        if (annotationView == nil) {
-//            annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-//        } else {
-//            annotationView.annotation = annotation;
-//        }
-//        annotationView.enabled = YES;
-//        annotationView.canShowCallout = YES;
-//        annotationView.animatesDrop = YES;
-////        annotationView.image = [UIImage imageNamed:@"myimage.png"];
-//        
-//        UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//        //UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//        [rightButton setImage:[UIImage imageNamed:@"phony2.png"] forState:UIControlStateNormal];
-//        [rightButton addTarget:self
-//                        action:@selector(showDetails:)
-//              forControlEvents:UIControlEventTouchUpInside];
-//        annotationView.rightCalloutAccessoryView = rightButton;
-//        
-//        return annotationView;
-//    }
-//    return nil;
-//}
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+-(void)foodPickOption:(NSString *)nodeStr
 {
-    if(![view.annotation isKindOfClass:[MKUserLocation class]])
-    {
-        [self foodPickOption];
-    }
-}
-
--(void)foodPickOption
-{
-    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:@"Visited this node" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Collected",@"Not Collected", nil];
-    
+    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:@"Food Collected ?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"YES",@"NO", nil];
+    foodTypeStr= nodeStr;
     [alertView show];
 }
+
+
 -(void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
    // self.searchButton.hidden = NO;
 }
@@ -217,16 +308,32 @@ int tsp(int **adjMatrix, int numberPoints)
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"string---%d",buttonIndex);
+    if (buttonIndex > 0) {
+        // yes
+        [self updateStatus:buttonIndex];
+    }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+-(void)updateStatus:(NSInteger)forIndex
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSString *statusStr = @"";
+    if (forIndex == 1) {
+        statusStr = @"received";
+    }
+    else
+        statusStr = @"not received";
+    UpdateStatusInt *updateInt = [[UpdateStatusInt alloc] initWithDelegate:self callback:@selector(updateStatusResponse)];
+    [updateInt updateStatusWithUrl:foodTypeStr status:statusStr];
 }
-*/
 
+-(void)updateStatusResponse
+{
+    
+}
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 @end
