@@ -242,7 +242,7 @@
             NSLog(@"connected Successfully");
             
             AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            appDel.userMailId = userName.text;
+            appDel.userName = userName.text;
             if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])
             {
                      NSLog(@"%@" , resultDict);

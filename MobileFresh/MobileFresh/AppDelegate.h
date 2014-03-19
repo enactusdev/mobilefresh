@@ -12,6 +12,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,strong)NSString *userMailId;
+@property (nonatomic,strong)NSString *userName;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @end

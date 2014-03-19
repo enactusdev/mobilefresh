@@ -210,9 +210,10 @@
     NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:nil];
     
     AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDel.userMailId = userName.text;
+    
     if(resultDict)
     {
+        appDel.userName =[MobileFreshUtil nullValue:[resultDict valueForKey:@"username"]];
         if ([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"admin signed in"]) {
             [self performSegueWithIdentifier:@"adminLogin" sender:self];
         }

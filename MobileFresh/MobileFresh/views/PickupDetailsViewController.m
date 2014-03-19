@@ -72,7 +72,7 @@
 //    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&email=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userMailId];
+    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&username=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userName];
     SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
     [submitInt getSubmitList:strRequest];
 
