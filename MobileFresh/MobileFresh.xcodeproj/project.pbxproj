@@ -49,6 +49,7 @@
 		30BB4CF618D961CC00B7B8BF /* NodeListInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CF518D961CC00B7B8BF /* NodeListInt.m */; };
 		5A21086618D31B4B00C2D60C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		5A21086918D345F700C2D60C /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A21086818D345F700C2D60C /* Annotation.m */; };
+		5A7AD03F18D991480070B25C /* SubmitListInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7AD03E18D991480070B25C /* SubmitListInt.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,8 @@
 		5A21086518D31B4B00C2D60C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		5A21086718D345F700C2D60C /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
 		5A21086818D345F700C2D60C /* Annotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Annotation.m; sourceTree = "<group>"; };
+		5A7AD03D18D991480070B25C /* SubmitListInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitListInt.h; sourceTree = "<group>"; };
+		5A7AD03E18D991480070B25C /* SubmitListInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitListInt.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +315,8 @@
 				30BB4CEE18D95F9100B7B8BF /* IntAbstract.m */,
 				30BB4CF418D961CC00B7B8BF /* NodeListInt.h */,
 				30BB4CF518D961CC00B7B8BF /* NodeListInt.m */,
+				5A7AD03D18D991480070B25C /* SubmitListInt.h */,
+				5A7AD03E18D991480070B25C /* SubmitListInt.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				09D8CA0418CEFCDE0099D9D2 /* ViewController.m in Sources */,
 				09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */,
 				09BBBAB418CFF84800B4B884 /* PickupDetailsViewController.m in Sources */,
+				5A7AD03F18D991480070B25C /* SubmitListInt.m in Sources */,
 				30BB4CEF18D95F9100B7B8BF /* IntAbstract.m in Sources */,
 				5A21086918D345F700C2D60C /* Annotation.m in Sources */,
 				09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */,
