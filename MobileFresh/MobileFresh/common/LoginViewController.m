@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "MobileFreshConstant.h"
 #import "MobileFreshUtil.h"
+#import "AppDelegate.h"
 @interface LoginViewController ()
 
 @end
@@ -207,6 +208,9 @@
     // You can parse the stuff in your instance variable now
     
     NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableLeaves error:nil];
+    
+    AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    appDel.userMailId = userName.text;
     if(resultDict)
     {
         if ([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"admin signed in"]) {

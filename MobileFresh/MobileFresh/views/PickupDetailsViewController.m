@@ -59,18 +59,20 @@
     
     //getting value from date picker
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/mm/yyyy HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:Picker.date];
     NSLog(@"%@",dateString);
-    [offer setObject:dateString forKey:@"usebydate"];
+//    [offer setObject:dateString forKey:@"usebydate"];
     //Getting latitude and longitude values
-    [self uploadOffer:offer];
+//    [self uploadOffer:offer];
     //Posting Date time ,foodtype values
     NSString *strRequest;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newManagedObject
-                                                       options:NSJSONWritingPrettyPrinted error:Nil];
-    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%@&status=%@",foodType.text,dateString,jsonGeocodeString ,@"wating"];
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newManagedObject
+//                                                       options:NSJSONWritingPrettyPrinted error:Nil];
+//    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&email=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userMailId];
     SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
     [submitInt getSubmitList:strRequest];
 

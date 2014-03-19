@@ -12,7 +12,7 @@
 
 #pragma mark - Properties
 
-@synthesize locationManager;
+@synthesize locationManager,userMailId;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.

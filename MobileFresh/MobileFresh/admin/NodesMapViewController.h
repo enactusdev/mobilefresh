@@ -11,6 +11,7 @@
 #import "Annotation.h"
 #import "CustomAnnotation.h"
 #import "Node.h"
+#import <AddressBook/AddressBook.h>
 @interface NodesMapViewController : UIViewController<MKMapViewDelegate,UIAlertViewDelegate>
 {
     MKMapView *_nodesMapView;
@@ -23,6 +24,7 @@
     Node *fromNode,*toNode,*sourceNode;
     
     NSMutableArray *shortestDistanceArray;
+    CLGeocoder *reverseGeocoder;
 }
 @property (strong, nonatomic) MKMapView *nodesMapView;
 @property (nonatomic, strong) MKAnnotationView *selectedAnnotationView;

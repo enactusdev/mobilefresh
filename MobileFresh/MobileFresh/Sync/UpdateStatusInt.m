@@ -10,7 +10,8 @@
 @implementation UpdateStatusInt
 -(void)updateStatusWithUrl:(NSString *)foodType status:(NSString *)statusStr
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@foodStatus&format=json&usertype=admin&foodtype=%@&status=%@",SERVER_ADDRESS,foodType,statusStr];
+    NSString *urlString = [NSString stringWithFormat:@"%@foodStatus&format=json&usertype=admin&nodeid=%@&status=%@",SERVER_ADDRESS,foodType,statusStr];
+    NSLog(@"url--%@",urlString);
     [self startConnectionWithURL:urlString callback:@selector(receiveUpdateResponse:)];
 }
 

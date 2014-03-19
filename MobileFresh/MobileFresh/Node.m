@@ -15,12 +15,12 @@
 -(id)initWithNodDict:(NSDictionary *)nodeDict
 {
     if (self == [super init]) {
-        self.title  = @"Node";//[nodeDict valueForKey:@""];
+        self.title  = [nodeDict valueForKey:@"title"];
         
         self.location = [nodeDict valueForKey:@"NodeLocation"];
         self.foodType = [nodeDict valueForKey:@"foodtype"];
         self.time = [nodeDict valueForKey:@"time"];
-        self.idStr = [nodeDict valueForKey:@""];
+        self.idStr = [nodeDict valueForKey:@"NodeId"];
         NSArray *locationArray = [self.location componentsSeparatedByString:@","];
         if (locationArray.count > 1) {
             self.latitude = [[locationArray objectAtIndex:0] floatValue];
@@ -31,7 +31,9 @@
             self.latitude = 0;
             self.longitude = 0;
         }
-        
+//        self.latitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Latitude"] floatValue];
+//        
+//        self.longitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Longitude"] floatValue];
         self.isNodeSelected = NO;
     }
     return self;

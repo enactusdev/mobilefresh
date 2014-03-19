@@ -363,13 +363,19 @@
         }
         
     }
-    if (forCount<nodesArray.count) {
-        
-        toNode = [nodesArray objectAtIndex:forCount+1];
-    }
-    else
+    if (forCount< nodesArray.count) {
         
         toNode = [nodesArray objectAtIndex:forCount];
+    }
+    else{
+        
+        AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        toNode = [[Node alloc] init];
+        toNode.latitude =appDel.locationManager.location.coordinate.latitude;
+        toNode.longitude =appDel.locationManager.location.coordinate.longitude;
+        toNode.title = @"Current Location";
+        
+    }
 }
 
 /*
@@ -445,30 +451,11 @@
     [self.nodesMapView setRegion:region animated:YES];
 }
 
-#define OO 2000000;
-
-int tsp(int **adjMatrix, int numberPoints)
-{
-    for (int i = 0; i < numberPoints; i++)
-        for (int j = 0; j < numberPoints; j++)
-            for (int k = 0; k < numberPoints; k++)
-                if (adjMatrix[i][k] + adjMatrix[k][j] < adjMatrix[i][j])
-                    adjMatrix[i][j] = adjMatrix[i][k] + adjMatrix[k][j];
-    
-    int min = OO;
-    
-    for (int i = 0; i < numberPoints; i++)
-        for (int j = 0; j < numberPoints; j++)
-            if (adjMatrix[i][j] + adjMatrix[j][i] < min)
-                min = adjMatrix[i][j] + adjMatrix[j][i];
-    
-    return min;
-}
 -(void)foodPickOption:(Node *)node
 {
-//    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Driving Direction",@"Food Collected",@"Food Not Collected", nil];
+    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Driving Direction",@"Food Collected",@"Food Not Collected", nil];
     
-    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Food Collected",@"Food Not Collected", nil];
+//    UIAlertView *alertView =[[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Food Collected",@"Food Not Collected", nil];
     foodTypeStr= node.idStr;
     fromNode = node;
     [alertView show];
@@ -490,21 +477,46 @@ int tsp(int **adjMatrix, int numberPoints)
     else if(buttonIndex ==1)
     {
         // show direction
-//        
-//        MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
-//        [request setSource:[[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:nil]]];
-//        [request setDestination:[[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:nil]]];
-//        [request setTransportType:MKDirectionsTransportTypeAny]; // This can be limited to automobile and walking directions.
-//        [request setRequestsAlternateRoutes:YES]; // Gives you several route options.
-//        MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
-//        [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
-//            if (!error) {
-//                for (MKRoute *route in [response routes]) {
-//                    [self.nodesMapView addOverlay:[route polyline] level:MKOverlayLevelAboveRoads]; // Draws the route above roads, but below labels.
-//                    // You can also get turn-by-turn steps, distance, advisory notices, ETA, etc by accessing various route properties.
-//                }
-//            }
-//        }];
+        CLLocation *location1 = [[CLLocation alloc] initWithLatitude:fromNode.latitude longitude: fromNode.longitude];
+        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:toNode.latitude longitude: toNode.longitude];
+        NSDictionary *address1 = @{
+                                  (NSString *)kABPersonAddressStreetKey: fromNode.title
+                                  };
+        NSDictionary *address2 = @{
+                                  (NSString *)kABPersonAddressStreetKey: toNode.title
+                                  };
+//        __block MKPlacemark *placeMark1;
+//        [reverseGeocoder reverseGeocodeLocation: location1 completionHandler:
+//         ^(NSArray *placemarks, NSError *error) {
+//             
+//                 if (placemarks && placemarks.count > 0) {
+//                     CLPlacemark *topResult = [placemarks objectAtIndex:0];
+//                     // Create a MLPlacemark and add it to the map view
+//                     placeMark1 = [[MKPlacemark alloc] initWithPlacemark:topResult];
+//                     
+//                     NSLog(@"City---%@",placeMark1.locality);
+//             }
+//         }];
+//        __block MKPlacemark *placeMark2;
+//        [reverseGeocoder reverseGeocodeLocation: location2 completionHandler:
+//         ^(NSArray *placemarks, NSError *error) {
+//             
+//             if (placemarks && placemarks.count > 0) {
+//                 CLPlacemark *topResult = [placemarks objectAtIndex:0];
+//                 // Create a MLPlacemark and add it to the map view
+//                 placeMark2 = [[MKPlacemark alloc] initWithPlacemark:topResult];
+//                 NSLog(@"City---%@",placeMark1.locality);
+//             }
+//         }];
+        
+        MKMapItem *mapItem1 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:address1]];
+        MKMapItem *mapItem2 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:address2]];
+        NSArray *mapItems = @[mapItem1, mapItem2];
+        
+        NSDictionary *options = @{
+                                  MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving
+                                  };
+        [MKMapItem openMapsWithItems:mapItems launchOptions:options];
     }
 }
 //- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay

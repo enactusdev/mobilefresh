@@ -7,7 +7,7 @@
 //
 
 #import "SignupViewController.h"
-
+#import "AppDelegate.h"
 @interface SignupViewController ()
 
 @end
@@ -240,6 +240,9 @@
         if(resultDict)
         {
             NSLog(@"connected Successfully");
+            
+            AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+            appDel.userMailId = userName.text;
             if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])
             {
                      NSLog(@"%@" , resultDict);
