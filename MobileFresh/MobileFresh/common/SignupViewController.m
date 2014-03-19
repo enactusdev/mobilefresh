@@ -255,16 +255,18 @@
                 }
                 
             }
-            else
-            {
-                [[[UIAlertView alloc] initWithTitle:@"Duplicate entry for email id"
-                                            message:@"Try Again!"
-                                           delegate:nil
-                                  cancelButtonTitle:@"ok"
-                                  otherButtonTitles:nil] show];
-            }
         }
         
+        
+        else
+        {
+            [[[UIAlertView alloc] initWithTitle:newStr
+                                        message:@"Try Again!"
+                                       delegate:nil
+                              cancelButtonTitle:@"ok"
+                              otherButtonTitles:nil] show];
+        }
+
     
     }
 
