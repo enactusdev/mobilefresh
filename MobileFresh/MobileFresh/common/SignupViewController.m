@@ -53,19 +53,17 @@
 
 - (IBAction)submit:(id)sender {
     NSLog(@"Submit Button is clicked");
-  [self sendserverRequest];
-    
-    if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"]) {
-        
-        [self performSegueWithIdentifier:@"NodeList" sender:self];
-        
+    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
+    BOOL passwordMatching = [self checkPwd];
+    if(passwordMatching)
+    {
+        if(emptyFieldValue)
+        {
+            
+            [self sendserverRequest];
+        }
     }
-   else
-   {
-       
-       [self performSegueWithIdentifier:@"PickerDetails" sender:self];
-        
-    }
+
     
     //send the registration request to server
     //verify user information
@@ -86,7 +84,7 @@
 -(void)sendserverRequest
 {
     NSString *userTypeStr=[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]];
-    NSLog(@"userTypeStr--%@",userTypeStr);
+//    NSLog(@"userTypeStr--%@",userTypeStr);
     if(_responseData)
     {
         _responseData = nil;
@@ -99,17 +97,7 @@
     {
         if(emptyFieldValue)
         {
-            
-//            NSString *firstName = userName.text;
-//            NSString *email1 = email.text;
-//            NSString *password1= password.text;
-//            NSString *passwordconf = password2.text;
-            userType.selectedSegmentIndex=0;
-            NSString *userTypeStr=[userType titleForSegmentAtIndex:0];
-            
-            // NSString *userTypeStr=[userType titleForSegmentAtIndex:[userType selectedSegmentIndex]];
-            NSLog(@"userTypeStr--%@",userTypeStr);
-            
+    
             //            [_activityIndicator showCustomActivity:YES];
             [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
             NSString *strRequest;
@@ -120,23 +108,26 @@
             NSLog(@"request %@",strRequest);
             
             NSString *urlString = [NSString stringWithFormat:@"%@signup&format=json&",ServerAddress];
+            urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
             
-            NSLog(@"URLSTRING ------->>%@?%@",urlString,strRequest);
-             url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            NSLog(@"URLSTRING ------->>%@",urlString);
+            url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             //url = [NSURL URLWithString:urlString];
             
             request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
             [request setHTTPMethod:@"POST"];
             
-            [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
-            
-            NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
-            [request setHTTPBody: requestData];
+//            [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
+//            
+//            NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
+//            [request setHTTPBody: requestData];
             
             NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
             [connection start];
+    
         }
     }
+    
 
     
 }
@@ -211,16 +202,15 @@
 // -------------------------------------------------------------------------------
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    if(_responseData == nil)
+    if(_responseData==nil)
     {
-        _responseData = [[NSMutableData alloc]init];
+    _responseData = [[NSMutableData alloc]init];
         NSLog(@"connected to server");
+    
+        [_responseData appendData:data];
     }
-    if(data)
-        [_responseData appendData:data];//appending the data to
-    else {
-        NSLog(@"ERROR IN GETTING DATA");
-    }
+    //appending the data to
+    
     
 }
 
@@ -241,29 +231,45 @@
 // -------------------------------------------------------------------------------
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    //    [_activityIndicator showCustomActivity:NO];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if(_responseData)
     {
         NSString *newStr = [[NSString alloc]initWithData:_responseData encoding:NSUTF8StringEncoding];
         NSLog(@"%@",newStr);
-//        
-//        if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"]) {
-//            
-//                   [self performSegueWithIdentifier:@"NodeList" sender:self];
-//            
-//                }
-//               else
-//               {
-//            
-//                  [self performSegueWithIdentifier:@"PickerDetails" sender:self];
-//                   
-//               }
+        NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:_responseData options:NSJSONReadingMutableLeaves error:nil];
+        if(resultDict)
+        {
+            NSLog(@"connected Successfully");
+            if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])
+            {
+                     NSLog(@"%@" , resultDict);
+                if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"])
+                {
+                   [self performSegueWithIdentifier:@"NodeList" sender:self];
+                }
+              
+            else if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Donater"])
+                {
         
+                    [self performSegueWithIdentifier:@"PickerDetails" sender:self];
+                }
+                
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Duplicate entry for email id"
+                                            message:@"Try Again!"
+                                           delegate:nil
+                                  cancelButtonTitle:@"ok"
+                                  otherButtonTitles:nil] show];
+            }
+        }
         
+    
     }
+
 }
+
 
 - (IBAction)selectSegment:(id)sender {
     NSLog(@"%@----",sender);
