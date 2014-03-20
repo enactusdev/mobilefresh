@@ -44,6 +44,8 @@
 		3092BEA618DAFA6300F64704 /* FSAMobileFreshLogo_New.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA518DAFA6200F64704 /* FSAMobileFreshLogo_New.png */; };
 		3092BEAA18DB04CB00F64704 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA918DB04CB00F64704 /* Logo.png */; };
 		3092BEAD18DB101C00F64704 /* ThanksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3092BEAC18DB101C00F64704 /* ThanksViewController.m */; };
+		3092BEB018DB143300F64704 /* SignUpInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3092BEAF18DB143300F64704 /* SignUpInt.m */; };
+		3092BEB318DB144600F64704 /* LoginInt.m in Sources */ = {isa = PBXBuildFile; fileRef = 3092BEB218DB144600F64704 /* LoginInt.m */; };
 		30BB4CDF18D81CEA00B7B8BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */; };
 		30BB4CE018D81CFB00B7B8BF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		30BB4CE418D8312000B7B8BF /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CE318D8312000B7B8BF /* Node.m */; };
@@ -119,6 +121,10 @@
 		3092BEA918DB04CB00F64704 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		3092BEAB18DB101C00F64704 /* ThanksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThanksViewController.h; sourceTree = "<group>"; };
 		3092BEAC18DB101C00F64704 /* ThanksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThanksViewController.m; sourceTree = "<group>"; };
+		3092BEAE18DB143300F64704 /* SignUpInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SignUpInt.h; path = Sync/SignUpInt.h; sourceTree = "<group>"; };
+		3092BEAF18DB143300F64704 /* SignUpInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SignUpInt.m; path = Sync/SignUpInt.m; sourceTree = "<group>"; };
+		3092BEB118DB144600F64704 /* LoginInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginInt.h; path = Sync/LoginInt.h; sourceTree = "<group>"; };
+		3092BEB218DB144600F64704 /* LoginInt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginInt.m; path = Sync/LoginInt.m; sourceTree = "<group>"; };
 		30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		30BB4CE218D8312000B7B8BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		30BB4CE318D8312000B7B8BF /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
@@ -347,6 +353,10 @@
 				5A7AD03E18D991480070B25C /* SubmitListInt.m */,
 				30BB4D0418D9917100B7B8BF /* UpdateStatusInt.h */,
 				30BB4D0518D9917100B7B8BF /* UpdateStatusInt.m */,
+				3092BEAE18DB143300F64704 /* SignUpInt.h */,
+				3092BEAF18DB143300F64704 /* SignUpInt.m */,
+				3092BEB118DB144600F64704 /* LoginInt.h */,
+				3092BEB218DB144600F64704 /* LoginInt.m */,
 			);
 			name = Sync;
 			sourceTree = "<group>";
@@ -488,6 +498,7 @@
 				30BB4CE818D8325E00B7B8BF /* MobileFreshUtil.m in Sources */,
 				09D8CA0418CEFCDE0099D9D2 /* ViewController.m in Sources */,
 				09340DF218D0C799008DC7FA /* NodesMapViewController.m in Sources */,
+				3092BEB318DB144600F64704 /* LoginInt.m in Sources */,
 				09BBBAB418CFF84800B4B884 /* PickupDetailsViewController.m in Sources */,
 				5A7AD03F18D991480070B25C /* SubmitListInt.m in Sources */,
 				30BB4CEF18D95F9100B7B8BF /* IntAbstract.m in Sources */,
@@ -502,6 +513,7 @@
 				09D8C9FA18CEFCDE0099D9D2 /* main.m in Sources */,
 				09BBBABA18D046FB00B4B884 /* SignupViewController.m in Sources */,
 				30BB4CEB18D8348200B7B8BF /* NodeCell.m in Sources */,
+				3092BEB018DB143300F64704 /* SignUpInt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

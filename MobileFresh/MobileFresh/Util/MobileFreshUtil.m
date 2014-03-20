@@ -60,4 +60,21 @@
 //    NSLog(@"distance.................diff....%f,%f,%f,%f",sqrt(a),sqrt(1-a),atan2(sqrt(a), sqrt(1-a)),3959 * 2 * atan2(sqrt(a), sqrt(1-a)) );
     return d;
 }
+
++(UIAlertView *)showAlert:(NSString *)title msg:(NSString *)message
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    return alert;
+}
+
++(BOOL) checkValue:(NSString *) val ForVariable:(NSString *) variableName
+{
+    if (!val || [val isEqual:nil] || [[val stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
+        [self showAlert:@"Error!!" msg:[NSString stringWithFormat:@"%@",variableName]];
+        return NO;
+    }
+    return YES;
+}
+
 @end

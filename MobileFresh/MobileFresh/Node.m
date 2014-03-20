@@ -21,19 +21,26 @@
         self.foodType = [nodeDict valueForKey:@"foodtype"];
         self.time = [nodeDict valueForKey:@"time"];
         self.idStr = [nodeDict valueForKey:@"NodeId"];
-        NSArray *locationArray = [self.location componentsSeparatedByString:@","];
-        if (locationArray.count > 1) {
-            self.latitude = [[locationArray objectAtIndex:0] floatValue];
-            self.longitude = [[locationArray objectAtIndex:1] floatValue];
-        }
-        else
-        {
-            self.latitude = 0;
-            self.longitude = 0;
-        }
-//        self.latitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Latitude"] floatValue];
-//        
-//        self.longitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Longitude"] floatValue];
+//        if ([[nodeDict valueForKey:@"NodeLocation"] rangeOfString:@","].location == NSNotFound) {
+//            
+//            self.latitude = 0;
+//            self.longitude = 0;
+//        }
+//        else {
+//            NSArray *locationArray = [self.location componentsSeparatedByString:@","];
+//            if (locationArray.count > 1) {
+//                self.latitude = [[locationArray objectAtIndex:0] floatValue];
+//                self.longitude = [[locationArray objectAtIndex:1] floatValue];
+//            }
+//            else
+//            {
+//                self.latitude = 0;
+//                self.longitude = 0;
+//            }
+//        }
+        self.latitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Latitude"] floatValue];
+        
+        self.longitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Longitude"] floatValue];
         self.isNodeSelected = NO;
     }
     return self;

@@ -15,4 +15,8 @@
 
 +(double)calculateDistanceWitLat:(float)fromLat fromLongitude:(float)fromLng toLat:(float)toLat toLong:(float)toLong;
 +(double) getDistance:(CLLocationCoordinate2D) location1 and:(CLLocationCoordinate2D) location2;
+
++(UIAlertView *)showAlert:(NSString *)title msg:(NSString *)message;
+
++(BOOL) checkValue:(NSString *) val ForVariable:(NSString *) variableName;
 @end

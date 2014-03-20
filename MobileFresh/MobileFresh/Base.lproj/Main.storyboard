@@ -232,7 +232,7 @@
                                     <action selector="cancel:" destination="LAx-oQ-gAd" eventType="touchDown" id="0S6-ix-ZiG"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="orgText" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Pin Name" minimumFontSize="17" id="3z9-xZ-4eh">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="orgText" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Pin" minimumFontSize="17" id="3z9-xZ-4eh">
                                 <rect key="frame" x="30" y="302" width="260" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

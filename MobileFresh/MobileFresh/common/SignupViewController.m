@@ -8,7 +8,9 @@
 
 #import "SignupViewController.h"
 #import "AppDelegate.h"
+#import "SignUpInt.h"
 #import "MobileFreshConstant.h"
+#import "MobileFreshUtil.h"
 @interface SignupViewController ()
 
 @end
@@ -32,6 +34,7 @@
     userType.frame = CGRectMake(98,317,125,29);
     submitBtn.frame = CGRectMake(77,372,166,30);
     cancelBtn.frame= CGRectMake(77,426,166,30);
+    pinName.text = nil;
     // Do any additional setup after loading the view.
 }
 
@@ -62,27 +65,16 @@
 
 - (IBAction)submit:(id)sender {
     NSLog(@"Submit Button is clicked");
-    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
+//    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
     BOOL passwordMatching = [self checkPwd];
     if(passwordMatching)
     {
-        if(emptyFieldValue)
-        {
-            
+//        if(emptyFieldValue)
+//        {
+        
             [self sendserverRequest];
-        }
+//        }
     }
-
-    
-    //send the registration request to server
-    //verify user information
-    //check that password and password2 are same.
-    //check that user has provided all the information.
-    //call server api for signup
-    //return success message
-    //show the corresponding page depending on user is donater or admin
-    
-   //[self dismissViewControllerAnimated:YES completion:nil];
 
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -93,55 +85,89 @@
 -(void)sendserverRequest
 {
     NSString *userTypeStr=[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]];
-//    NSLog(@"userTypeStr--%@",userTypeStr);
     if(_responseData)
     {
         _responseData = nil;
     }
     
-    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
+//    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
     BOOL passwordMatching = [self checkPwd];
+    
+    
+    if([MobileFreshUtil checkValue:userName.text ForVariable:@"Please Enter \"User Name\""])
+        if([MobileFreshUtil checkValue:password.text ForVariable:@"Please Enter \"Password\""])
+            if([MobileFreshUtil checkValue:password2.text ForVariable:@"Please Enter \"Confirm Password\""])
+                if([MobileFreshUtil checkValue:email.text ForVariable:@"Please Enter \"Email\""])
+                    if([MobileFreshUtil checkValue:organization.text ForVariable:@"Please Enter \"Organisation\""]){
     //sending request
     if(passwordMatching)
     {
-        if(emptyFieldValue)
+//        if(emptyFieldValue)
+//        {
+        
+            NSString *strRequest= [NSString stringWithFormat:@"username=%@&email=%@&password=%@&organizationname=%@&usertype=%@",userName.text,email.text,password.text,organization.text,[userTypeStr lowercaseString]];
+            if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"]) {
+                NSLog(@"Pin --%@",pinName.text);
+                if([MobileFreshUtil checkValue:pinName.text ForVariable:@"Please Enter \"Pin\""])
+                {
+                    strRequest = [NSString stringWithFormat:@"%@&pin=%@",strRequest,pinName.text];
+                    
+                }
+                else
+                {
+                    return;
+                }
+            }
+            SignUpInt *signUpInt = [[SignUpInt alloc] initWithDelegate:self callback:@selector(signUpResponse:)];
+            [signUpInt signUpUserWithUrl:strRequest];
+        }
+    }
+}
+
+-(void)signUpResponse:(NSDictionary *)resultDict
+{
+    if(resultDict)
+    {
+        NSLog(@"connected Successfully");
+        
+        AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDel.userName = userName.text;
+        if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])
         {
-    
-            //            [_activityIndicator showCustomActivity:YES];
-            [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-            NSString *strRequest;
-            NSURL *url; //= nil;
-            NSMutableURLRequest *request;// = nil;
+            NSLog(@"%@" , resultDict);
+            if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"])
+            {
+                [self performSegueWithIdentifier:@"NodeList" sender:self];
+            }
             
-            strRequest = [NSString stringWithFormat:@"username=%@&email=%@&password=%@&organizationname=%@&usertype=%@",userName.text,email.text,password.text,organization.text,[userTypeStr lowercaseString]];
-            NSLog(@"request %@",strRequest);
+            else if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Donator"])
+            {
+                
+                [self performSegueWithIdentifier:@"PickerDetails" sender:self];
+            }
             
-            NSString *urlString = [NSString stringWithFormat:@"%@signup&format=json&",SERVER_ADDRESS];
-            urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
+        }
+        else
+        {
             
-            NSLog(@"URLSTRING ------->>%@",urlString);
-            url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-            //url = [NSURL URLWithString:urlString];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:[resultDict valueForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
             
-            request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-            [request setHTTPMethod:@"POST"];
-            
-//            [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
-//            
-//            NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
-//            [request setHTTPBody: requestData];
-            
-            NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
-            [connection start];
-    
+            [alert show];
         }
     }
     
-
     
+    else
+    {
+        #warning
+        [[[UIAlertView alloc] initWithTitle:@""
+                                    message:@"Try Again!"
+                                   delegate:nil
+                          cancelButtonTitle:@"ok"
+                          otherButtonTitles:nil] show];
+    }
+
 }
-
-
 
 
 /*************************************************************
@@ -206,110 +232,23 @@
     
     return [emailTest evaluateWithObject:candidate];
 }
-// -------------------------------------------------------------------------------
-//	connection:didReceiveData:data
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    if(_responseData==nil)
-    {
-    _responseData = [[NSMutableData alloc]init];
-        NSLog(@"connected to server");
-    
-        [_responseData appendData:data];
-    }
-    //appending the data to
-    
-    
-}
-
-// -------------------------------------------------------------------------------
-//	connection:didFailWithError:error
-// -------------------------------------------------------------------------------
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    NSLog(@"ERROR IN GETTING DATA");
-    //    [_activityIndicator showCustomActivity:NO];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    
-   
-}
-
-// -------------------------------------------------------------------------------
-//	connectionDidFinishLoading:connection
-// -------------------------------------------------------------------------------
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    //[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    if(_responseData)
-    {
-        NSString *newStr = [[NSString alloc]initWithData:_responseData encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",newStr);
-        NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:_responseData options:NSJSONReadingMutableLeaves error:nil];
-        if(resultDict)
-        {
-            NSLog(@"connected Successfully");
-            
-            AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            appDel.userName = userName.text;
-            if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])
-            {
-                     NSLog(@"%@" , resultDict);
-                if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"])
-                {
-                   [self performSegueWithIdentifier:@"NodeList" sender:self];
-                }
-              
-                else if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Donator"])
-                {
-        
-                    [self performSegueWithIdentifier:@"PickerDetails" sender:self];
-                }
-                
-            }
-            else
-            {
-                
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:[resultDict valueForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-                
-                [alert show];
-            }
-        }
-        
-        
-        else
-        {
-            [[[UIAlertView alloc] initWithTitle:newStr
-                                        message:@"Try Again!"
-                                       delegate:nil
-                              cancelButtonTitle:@"ok"
-                              otherButtonTitles:nil] show];
-        }
-
-    
-    }
-
-}
-
 
 - (IBAction)selectSegment:(id)sender {
      NSString *userTypeStr=[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]];
     NSLog(@"selected segment %@----",userTypeStr);
-//    if([userTypeStr isEqualToString:@"Admin"])
-//    {
-//        [pinName setHidden:NO];
-//        userType.frame = CGRectMake(98,362,125,29);
-//        submitBtn.frame = CGRectMake(77,426,166,30);
-//        cancelBtn.frame= CGRectMake(77,478,166,30);
-//    }
-//    else
-//    {
-//        [pinName setHidden:YES];
-//        userType.frame = CGRectMake(98,317,125,29);
-//        submitBtn.frame = CGRectMake(77,372,166,30);
-//        cancelBtn.frame= CGRectMake(77,426,166,30);
-//    }
-//    
-//    selectedSegmentText
+    if([userTypeStr isEqualToString:@"Admin"])
+    {
+        [pinName setHidden:NO];
+        userType.frame = CGRectMake(98,362,125,29);
+        submitBtn.frame = CGRectMake(77,426,166,30);
+        cancelBtn.frame= CGRectMake(77,478,166,30);
+    }
+    else
+    {
+        [pinName setHidden:YES];
+        userType.frame = CGRectMake(98,317,125,29);
+        submitBtn.frame = CGRectMake(77,372,166,30);
+        cancelBtn.frame= CGRectMake(77,426,166,30);
+    }
 }
 @end

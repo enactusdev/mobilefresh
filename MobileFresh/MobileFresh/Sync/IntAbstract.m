@@ -7,7 +7,7 @@
 //
 
 #import "IntAbstract.h"
-
+#import "MobileFreshUtil.h"
 @implementation IntAbstract
 
 -(id)initWithDelegate:(id)delegateObj callback:(SEL)callBackMethod{
@@ -71,6 +71,9 @@
     
     NSLog(@"connection failure");
     NSLog(@"%@" , error);
+    if (error.code == -1001) {
+        [MobileFreshUtil showAlert:@"Error" msg:@"Request Time Out"];
+    }
 }
 
 
