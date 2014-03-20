@@ -283,21 +283,21 @@
 - (IBAction)selectSegment:(id)sender {
      NSString *userTypeStr=[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]];
     NSLog(@"selected segment %@----",userTypeStr);
-    if([userTypeStr isEqualToString:@"Admin"])
-    {
-        [pinName setHidden:NO];
-        userType.frame = CGRectMake(98,362,125,29);
-        submitBtn.frame = CGRectMake(77,426,166,30);
-        cancelBtn.frame= CGRectMake(77,478,166,30);
-    }
-    else
-    {
-        [pinName setHidden:YES];
-        userType.frame = CGRectMake(98,317,125,29);
-        submitBtn.frame = CGRectMake(77,372,166,30);
-        cancelBtn.frame= CGRectMake(77,426,166,30);
-    }
-    
+//    if([userTypeStr isEqualToString:@"Admin"])
+//    {
+//        [pinName setHidden:NO];
+//        userType.frame = CGRectMake(98,362,125,29);
+//        submitBtn.frame = CGRectMake(77,426,166,30);
+//        cancelBtn.frame= CGRectMake(77,478,166,30);
+//    }
+//    else
+//    {
+//        [pinName setHidden:YES];
+//        userType.frame = CGRectMake(98,317,125,29);
+//        submitBtn.frame = CGRectMake(77,372,166,30);
+//        cancelBtn.frame= CGRectMake(77,426,166,30);
+//    }
+//    
 //    selectedSegmentText
 }
 @end
