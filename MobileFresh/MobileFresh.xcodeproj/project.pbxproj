@@ -39,6 +39,11 @@
 		09D8CA0F18CEFCDF0099D9D2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09D8C9F118CEFCDE0099D9D2 /* UIKit.framework */; };
 		09D8CA1718CEFCDF0099D9D2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 09D8CA1518CEFCDF0099D9D2 /* InfoPlist.strings */; };
 		09D8CA1918CEFCDF0099D9D2 /* MobileFreshTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */; };
+		3092BEA318DAE99A00F64704 /* enactuslasierrauniversitylogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA118DAE99A00F64704 /* enactuslasierrauniversitylogo.png */; };
+		3092BEA418DAE99B00F64704 /* FSAMobileFreshLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA218DAE99A00F64704 /* FSAMobileFreshLogo.png */; };
+		3092BEA618DAFA6300F64704 /* FSAMobileFreshLogo_New.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA518DAFA6200F64704 /* FSAMobileFreshLogo_New.png */; };
+		3092BEAA18DB04CB00F64704 /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3092BEA918DB04CB00F64704 /* Logo.png */; };
+		3092BEAD18DB101C00F64704 /* ThanksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3092BEAC18DB101C00F64704 /* ThanksViewController.m */; };
 		30BB4CDF18D81CEA00B7B8BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */; };
 		30BB4CE018D81CFB00B7B8BF /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A21086518D31B4B00C2D60C /* MapKit.framework */; };
 		30BB4CE418D8312000B7B8BF /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BB4CE318D8312000B7B8BF /* Node.m */; };
@@ -108,6 +113,12 @@
 		09D8CA1418CEFCDF0099D9D2 /* MobileFreshTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobileFreshTests-Info.plist"; sourceTree = "<group>"; };
 		09D8CA1618CEFCDF0099D9D2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		09D8CA1818CEFCDF0099D9D2 /* MobileFreshTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MobileFreshTests.m; sourceTree = "<group>"; };
+		3092BEA118DAE99A00F64704 /* enactuslasierrauniversitylogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enactuslasierrauniversitylogo.png; sourceTree = "<group>"; };
+		3092BEA218DAE99A00F64704 /* FSAMobileFreshLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FSAMobileFreshLogo.png; sourceTree = "<group>"; };
+		3092BEA518DAFA6200F64704 /* FSAMobileFreshLogo_New.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FSAMobileFreshLogo_New.png; sourceTree = "<group>"; };
+		3092BEA918DB04CB00F64704 /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
+		3092BEAB18DB101C00F64704 /* ThanksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThanksViewController.h; sourceTree = "<group>"; };
+		3092BEAC18DB101C00F64704 /* ThanksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThanksViewController.m; sourceTree = "<group>"; };
 		30BB4CDE18D81CEA00B7B8BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		30BB4CE218D8312000B7B8BF /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
 		30BB4CE318D8312000B7B8BF /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
@@ -164,6 +175,10 @@
 		098AF62918D49C2D004D2807 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				3092BEA918DB04CB00F64704 /* Logo.png */,
+				3092BEA118DAE99A00F64704 /* enactuslasierrauniversitylogo.png */,
+				3092BEA218DAE99A00F64704 /* FSAMobileFreshLogo.png */,
+				3092BEA518DAFA6200F64704 /* FSAMobileFreshLogo_New.png */,
 				09D7960418D554D4003316D2 /* Default.png */,
 				09D7960518D554D4003316D2 /* Default@2x.png */,
 				09D7960618D554D4003316D2 /* Default-568h@2x.png */,
@@ -186,6 +201,8 @@
 			children = (
 				09BBBAB218CFF84800B4B884 /* PickupDetailsViewController.h */,
 				09BBBAB318CFF84800B4B884 /* PickupDetailsViewController.m */,
+				3092BEAB18DB101C00F64704 /* ThanksViewController.h */,
+				3092BEAC18DB101C00F64704 /* ThanksViewController.m */,
 			);
 			name = donater;
 			sourceTree = "<group>";
@@ -436,14 +453,18 @@
 				098AF63918D49C2D004D2807 /* Icon-Small@2x.png in Resources */,
 				098AF63B18D49C2D004D2807 /* Icon@2x.png in Resources */,
 				098AF63718D49C2D004D2807 /* Icon-Small-50@2x.png in Resources */,
+				3092BEA418DAE99B00F64704 /* FSAMobileFreshLogo.png in Resources */,
 				098AF63C18D49C2D004D2807 /* iTunesArtwork in Resources */,
 				098AF63518D49C2D004D2807 /* Icon-72@2x.png in Resources */,
 				098AF63618D49C2D004D2807 /* Icon-Small-50.png in Resources */,
+				3092BEAA18DB04CB00F64704 /* Logo.png in Resources */,
 				09D7960718D554D4003316D2 /* Default.png in Resources */,
 				09D7960818D554D4003316D2 /* Default@2x.png in Resources */,
 				09D7960918D554D4003316D2 /* Default-568h@2x.png in Resources */,
 				09D8C9F818CEFCDE0099D9D2 /* InfoPlist.strings in Resources */,
 				09D8CA0118CEFCDE0099D9D2 /* Main.storyboard in Resources */,
+				3092BEA618DAFA6300F64704 /* FSAMobileFreshLogo_New.png in Resources */,
+				3092BEA318DAE99A00F64704 /* enactuslasierrauniversitylogo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +495,7 @@
 				09BBBABD18D0792900B4B884 /* LoginViewController.m in Sources */,
 				30BB4CE418D8312000B7B8BF /* Node.m in Sources */,
 				30BB4CF318D9613100B7B8BF /* MobileFreshConstant.m in Sources */,
+				3092BEAD18DB101C00F64704 /* ThanksViewController.m in Sources */,
 				30BB4D0318D9851100B7B8BF /* CustomAnnotation.m in Sources */,
 				09340DEF18D0BF28008DC7FA /* NodeListTableViewController.m in Sources */,
 				09D8C9FE18CEFCDE0099D9D2 /* AppDelegate.m in Sources */,

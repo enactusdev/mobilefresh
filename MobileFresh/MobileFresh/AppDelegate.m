@@ -12,12 +12,20 @@
 
 #pragma mark - Properties
 
-@synthesize locationManager,userName;
+@synthesize locationManager,userName,userAddress;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     //TODO
     //find users's current location and save in user settings
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Logo.png"] forBarMetrics:UIBarMetricsDefault];
+//
+//    UIWindow *window =[[UIApplication sharedApplication].windows objectAtIndex:0];
+//    UINavigationItem *navItem =window.rootViewController.navigationController.navigationItem;
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(120, 0, 200, 44)];
+//    imageView.image =[UIImage imageNamed:@"FSAMobileFreshLogo_New.png"];
+//    navItem.titleView = imageView;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self initLocationManager];
     return YES;
 }
@@ -34,12 +42,36 @@
         self.locationManager.delegate = self;
     }
     [self.locationManager startUpdatingLocation];
+    
+    
+    geocoder = [[CLGeocoder alloc] init];
 
 }
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
-//    NSLog(@"%@", @"Core location has a position.");
+    CLLocation *currentLocation = newLocation;
+    // Reverse Geocoding
+//    NSLog(@"Resolving the Address");
+    [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+//        NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
+        if (error == nil && [placemarks count] > 0) {
+            placemark = [placemarks lastObject];
+            self.userAddress = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
+                                 [self checkNull:placemark.subThoroughfare],[self checkNull: placemark.thoroughfare],[self checkNull:placemark.postalCode],[self checkNull:placemark.locality],[self checkNull:placemark.administrativeArea],[self checkNull:placemark.country]];
+        } else {
+//            NSLog(@"%@", error.debugDescription);
+        }
+    } ];
 }
+
+
+-(id)checkNull:(id)val{
+    if(val == [NSNull null] || !val)
+        return @"";
+    else
+        return val;
+}
+
 - (void) locationManager:(CLLocationManager *)manager
         didFailWithError:(NSError *)error
 {

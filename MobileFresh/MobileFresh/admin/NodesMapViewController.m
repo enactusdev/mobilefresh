@@ -65,6 +65,10 @@
 }
 
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 -(void)addMapView
 {
     // Create and add MapVIew

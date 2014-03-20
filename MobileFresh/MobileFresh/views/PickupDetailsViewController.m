@@ -40,6 +40,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
 - (IBAction)submitFoodDetails:(id)sender {
     //TODO
     //post the food pickup details to server
@@ -72,7 +76,9 @@
 //    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&username=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userName];
+    
+    NSLog(@"Address--%@",appDelegate.userAddress);
+    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&address=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userAddress];
     SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
     [submitInt getSubmitList:strRequest];
 

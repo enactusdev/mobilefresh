@@ -10,8 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,CLLocationManagerDelegate>
-
+{
+    CLGeocoder *geocoder;
+    CLPlacemark *placemark;
+}
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic,strong)NSString *userName;
+@property (nonatomic,strong)NSString *userName,*userAddress;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @end

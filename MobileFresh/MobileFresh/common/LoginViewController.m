@@ -233,6 +233,11 @@
     //initialize a new webviewcontroller
 }
 
+-(BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     // The request has failed for some reason!
     // Check the error var
