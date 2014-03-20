@@ -8,7 +8,7 @@
 
 #import "MobileFreshConstant.h"
 
-const NSString *SERVER_ADDRESS =  @"http://192.168.1.24:8089/mobilefresh/MobileApis/test.php?method=";
+const NSString *SERVER_ADDRESS = @"http://orangetreecapitalpartners.com/mobilefresh/MobileApis/mobileFresh.php?method=";//@"http://192.168.1.24:8089/mobilefresh/MobileApis/test.php?method=";
 @implementation MobileFreshConstant
 
 @end
