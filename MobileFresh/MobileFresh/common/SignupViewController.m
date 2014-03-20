@@ -53,7 +53,7 @@
 */
 - (IBAction)cancel:(id)sender {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)submit:(id)sender {
