@@ -256,12 +256,19 @@
                    [self performSegueWithIdentifier:@"NodeList" sender:self];
                 }
               
-            else if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Donater"])
+                else if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Donator"])
                 {
         
                     [self performSegueWithIdentifier:@"PickerDetails" sender:self];
                 }
                 
+            }
+            else
+            {
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:[resultDict valueForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+                
+                [alert show];
             }
         }
         
