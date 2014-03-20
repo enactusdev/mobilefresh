@@ -8,6 +8,7 @@
 
 #import "SignupViewController.h"
 #import "AppDelegate.h"
+#import "MobileFreshConstant.h"
 @interface SignupViewController ()
 
 @end
@@ -107,7 +108,7 @@
             strRequest = [NSString stringWithFormat:@"username=%@&email=%@&password=%@&organizationname=%@&usertype=%@",userName.text,email.text,password.text,organization.text,[userTypeStr lowercaseString]];
             NSLog(@"request %@",strRequest);
             
-            NSString *urlString = [NSString stringWithFormat:@"%@signup&format=json&",ServerAddress];
+            NSString *urlString = [NSString stringWithFormat:@"%@signup&format=json&",SERVER_ADDRESS];
             urlString = [NSString stringWithFormat:@"%@%@",urlString,strRequest];
             
             NSLog(@"URLSTRING ------->>%@",urlString);
