@@ -217,9 +217,15 @@
         if ([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"admin signed in"]) {
             [self performSegueWithIdentifier:@"adminLogin" sender:self];
         }
-        else
+        else if([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"donater signed in"])
         {
             [self performSegueWithIdentifier:@"userLogin" sender:self];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mobile Fresh" message:[resultDict valueForKey:@"message"] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [alert show];
         }
     }
     
