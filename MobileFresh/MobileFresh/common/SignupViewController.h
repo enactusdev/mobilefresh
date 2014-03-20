@@ -19,6 +19,7 @@
     IBOutlet UITextField *password2;
     IBOutlet UITextField *email;
     IBOutlet UITextField *organization;
+    IBOutlet UITextField *pinName;
     
     NSString *selectedSegmentText;
 }
