@@ -338,31 +338,35 @@
     else if(buttonIndex ==1)
     {
         // show direction
-//        CLLocation *location1 = [[CLLocation alloc] initWithLatitude:fromNode.latitude longitude: fromNode.longitude];
-//        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:toNode.latitude longitude: toNode.longitude];
-//        NSDictionary *address1 = @{
-//                                  (NSString *)kABPersonAddressStreetKey: fromNode.title
-//                                  };
-        NSDictionary *address2 = @{
-//                                  (NSString *)kABPersonAddressStreetKey: toNode.title
-                                   (NSString *)kABPersonAddressStreetKey: [self checkNullValue:[toNode.addressDict valueForKey:@"Street"]],
-                                   (NSString *)kABPersonAddressCityKey: [self checkNullValue:[toNode.addressDict valueForKey:@"City"]],
-                                   (NSString *)kABPersonAddressStateKey: [self checkNullValue:[toNode.addressDict valueForKey:@"State"]],
-                                   (NSString *)kABPersonAddressCountryKey:[self checkNullValue:[toNode.addressDict valueForKey:@"Country"]]
-                                  };
-        
-//        MKMapItem *mapItem1 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:address1]];
-        MKMapItem *mapItem2 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:address2]];
-//        NSArray *mapItems = @[mapItem1, mapItem2];
-        
+        MKMapItem *mapItem2 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:[self getAddressDictionary]]];
         NSDictionary *options = @{
                                   MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving
                                   };
-//        [MKMapItem openMapsWithItems:mapItems launchOptions:options];
         [mapItem2 openInMapsWithLaunchOptions:options];
     }
 }
 
+
+-(NSDictionary *)getAddressDictionary
+{
+    NSMutableDictionary *address = [[NSMutableDictionary alloc] init];
+    
+    if ([self checkNullValue:toNode.addressDict]) {
+        if ([[toNode.addressDict allKeys] containsObject:@"Street"]) {
+            [address setObject:[self checkNullValue:[toNode.addressDict valueForKey:@"Street"]] forKey:(NSString *)kABPersonAddressStreetKey];
+        }
+        if ([[toNode.addressDict allKeys] containsObject:@"City"]) {
+            [address setObject:[self checkNullValue:[toNode.addressDict valueForKey:@"City"]] forKey:(NSString *)kABPersonAddressCityKey];
+        }
+        if ([[toNode.addressDict allKeys] containsObject:@"State"]) {
+            [address setObject:[self checkNullValue:[toNode.addressDict valueForKey:@"State"]] forKey:(NSString *)kABPersonAddressStateKey];
+        }
+        if ([[toNode.addressDict allKeys] containsObject:@"Country"]) {
+            [address setObject:[self checkNullValue:[toNode.addressDict valueForKey:@"Country"]] forKey:(NSString *)kABPersonAddressCountryKey];
+        }
+    }
+    return address;
+}
 -(void)updateStatus:(NSInteger)forIndex
 {
     NSString *statusStr = @"";
