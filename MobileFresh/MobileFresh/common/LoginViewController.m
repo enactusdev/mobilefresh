@@ -53,12 +53,8 @@
 
 -(void)sendServerRequest
 {
-    
-        NSLog(@"Alert message");
-    
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//        NSString *strPassword =password.text;
-//        NSString *strUserName = userName.text;
+    
         NSString *strRequest;
         NSURL *url = nil;
         NSMutableURLRequest *request = nil;
@@ -70,28 +66,10 @@
     url= [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         [request setHTTPMethod:@"POST"];
-        
-//        [request setValue:[NSString stringWithFormat:@"%d",[strRequest length] ] forHTTPHeaderField:@"Content-Length"];
-    
-//        NSData *requestData = [NSData dataWithBytes:[strRequest UTF8String] length:[strRequest length]];
-//        [request setHTTPBody: requestData];
     
         NSURLConnection *connection = [[NSURLConnection alloc]initWithRequest:request delegate:self];
         [connection start];
         NSLog(@"%@",strRequest);
-        
-        
-//        if(connection)
-//        {
-//            NSLog(@"Connection Successful");
-//            
-//        }
-//        else{
-//            NSLog(@"Not connected");
-//            
-//        }
-    
-
 }
 - (void)didReceiveMemoryWarning
 {
@@ -148,14 +126,11 @@
     BOOL emptyFieldValueObj = [self checkTextFieldVal];
         //sending request
     
-     if(emptyFieldValueObj)
-        {
+    if(emptyFieldValueObj)
+    {
             [self sendServerRequest];
+        self.loginBtn.userInteractionEnabled = NO;
     }
-//        else
-//    {
-//               [self performSegueWithIdentifier:@"userLogin" sender:self];
-//    }
     
     //TODO
     //check if user has successfully logged in or not.
@@ -229,6 +204,8 @@
         }
     }
     
+    
+    self.loginBtn.userInteractionEnabled = YES;
     NSLog(@"%@" , resultDict);
     //initialize a new webviewcontroller
 }

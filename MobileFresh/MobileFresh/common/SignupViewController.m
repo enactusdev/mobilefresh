@@ -89,8 +89,6 @@
     {
         _responseData = nil;
     }
-    
-//    BOOL emptyFieldValue = [self checkEmptyTextFieldText];
     BOOL passwordMatching = [self checkPwd];
     
     
@@ -102,9 +100,6 @@
     //sending request
     if(passwordMatching)
     {
-//        if(emptyFieldValue)
-//        {
-        
             NSString *strRequest= [NSString stringWithFormat:@"username=%@&email=%@&password=%@&organizationname=%@&usertype=%@",userName.text,email.text,password.text,organization.text,[userTypeStr lowercaseString]];
             if ([[self.userType titleForSegmentAtIndex:[self.userType selectedSegmentIndex]] isEqualToString:@"Admin"]) {
                 NSLog(@"Pin --%@",pinName.text);
@@ -120,6 +115,8 @@
             }
             SignUpInt *signUpInt = [[SignUpInt alloc] initWithDelegate:self callback:@selector(signUpResponse:)];
             [signUpInt signUpUserWithUrl:strRequest];
+        
+            self.submitBtn.userInteractionEnabled = NO;
         }
     }
 }
@@ -157,14 +154,13 @@
     
     else
     {
-        #warning
-        [[[UIAlertView alloc] initWithTitle:@""
-                                    message:@"Try Again!"
+        [[[UIAlertView alloc] initWithTitle:@"Mobile Fresh"
+                                    message:@"Server Error"
                                    delegate:nil
                           cancelButtonTitle:@"ok"
                           otherButtonTitles:nil] show];
     }
-
+    self.submitBtn.userInteractionEnabled = YES;
 }
 
 
