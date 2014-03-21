@@ -98,7 +98,7 @@
     distanceArray = [self getShortestDistanceArrayFromCurrentLocation];
     if (distanceArray.count) {
         sourceNode =[distanceArray objectAtIndex:0];
-        NSLog(@"surce distance---%lf",sourceNode.distance);
+//        NSLog(@"current location distance---%lf %@",sourceNode.distance,sourceNode.title);
         [shortestDistanceArray addObject:sourceNode];
         [nodesArray removeObject:sourceNode];
     }
@@ -115,19 +115,21 @@
     if (nodesArray.count == 0) {
         return;
     }
+//    NSLog(@"<--------->");
     for (Node *node in nodesArray) {
         if (node.isNodeSelected) {
             
             double distance = [MobileFreshUtil calculateDistanceWitLat:sourceNode.latitude fromLongitude:sourceNode.longitude toLat:node.latitude toLong:node.longitude];
-            NSLog(@"distance---%lf",distance);
+//            NSLog(@"distance---%lf  %@",distance,node.title);
             node.distance = distance;
             [distanceNodeArray addObject:node];
         }
     }
-    
-    distanceArray = distanceNodeArray;
+//    NSLog(@"<--------->");
+    distanceArray = [self sortArray:distanceNodeArray];
     if (distanceArray.count) {
         sourceNode =[distanceArray objectAtIndex:0];
+//        NSLog(@"source distance---%lf  %@",sourceNode.distance,sourceNode.title);
         [shortestDistanceArray addObject:sourceNode];
         [nodesArray removeObject:sourceNode];
     }
@@ -143,7 +145,7 @@
         if (node.isNodeSelected) {
             
             double distance = [MobileFreshUtil calculateDistanceWitLat:appDel.locationManager.location.coordinate.latitude fromLongitude:appDel.locationManager.location.coordinate.longitude toLat:node.latitude toLong:node.longitude];
-            NSLog(@"distance---%lf",distance);
+//            NSLog(@"distance---%lf %@",distance, node.title);
             node.distance = distance;
 //            [distanceMuttArray addObject:[NSString stringWithFormat:@"%lf",distance]];
             [distanceNodeArray addObject:node];
@@ -161,7 +163,7 @@
         
         NSString *str1 = [NSString stringWithFormat:@"%lf",node1.distance ];
         NSString *str2 = [NSString stringWithFormat:@"%lf",node2.distance ];
-        return [str1 caseInsensitiveCompare:str2];
+        return [str1 compare:str2 options:NSNumericSearch];
     }];
     
     return distanceNodeArray;
@@ -372,7 +374,6 @@
 
 -(void)updateStatusResponse:(NSDictionary *)resultDict
 {
-    NSLog(@"responseDict --%@",resultDict);
     if (resultDict) {
         if ([[MobileFreshUtil nullValue:[resultDict valueForKey:@"message"]] isEqualToString:@"Success"]) {
             [nodesArray removeObject:fromNode];

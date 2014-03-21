@@ -15,6 +15,8 @@
 
 +(double)calculateDistanceWitLat:(float)fromLat fromLongitude:(float)fromLng toLat:(float)toLat toLong:(float)toLong;
 +(double) getDistance:(CLLocationCoordinate2D) location1 and:(CLLocationCoordinate2D) location2;
++(CGFloat)toRadians:(CGFloat ) deg ;
++(CGFloat) toDegrees:(CGFloat )radians;
 
 +(UIAlertView *)showAlert:(NSString *)title msg:(NSString *)message;
 

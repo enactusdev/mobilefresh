@@ -97,8 +97,8 @@
     }
     else
     {
-        [[[UIAlertView alloc] initWithTitle:@"Missing Information of FoodType"
-                                    message:@"Please enter food type"
+        [[[UIAlertView alloc] initWithTitle:@"Mobile Fresh"
+                                    message:@"Server Error"
                                    delegate:nil
                           cancelButtonTitle:@"ok"
                           otherButtonTitles:nil] show];

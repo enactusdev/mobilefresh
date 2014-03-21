@@ -33,10 +33,10 @@
 }
 
 +(double)calculateDistanceWitLat:(float)fromLat fromLongitude:(float)fromLng toLat:(float)toLat toLong:(float)toLong{
-//    NSLog(@"senders lat long ............%f,%f",lat, lng);
-    
-//    NSLog(@"receivers lat long ............%f,%f",currentLat, currentLng);
-    
+  
+//    NSLog(@"from lat long ............%f,%f",fromLat, fromLng);
+//    NSLog(@"to lat long ............%f,%f",toLat, toLong);
+//    
     CLLocationCoordinate2D currentLoc = CLLocationCoordinate2DMake(fromLat, fromLng);
     CLLocationCoordinate2D senderLoc = CLLocationCoordinate2DMake(toLat, toLong);
     double distance =0;
@@ -49,16 +49,32 @@
 {
     double lat1= location1.latitude*radian; double lon1 = location1.longitude;
     double lat2= location2.latitude*radian; double lon2 = location2.longitude;
-    double dLat = radian*(fabs(lat2 - lat1));
-    double dLon = radian*(fabs(lon2-lon1));
-    double a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(lat1) * cos(lat2);
-    //    if(-a){
-    //        a= -a;
-    //    }
-    double d = 3959 * 2 * atan2(sqrt(a), sqrt(1-a));
+//    double dLat = radian*(fabs(lat2 - lat1));
+//    double dLon = radian*(fabs(lon2-lon1));
+//    double a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(lat1) * cos(lat2);
+//
+//    double d = 3959 * 2 * atan2(sqrt(a), sqrt(1-a));
+//
+//    return d;
     
-//    NSLog(@"distance.................diff....%f,%f,%f,%f",sqrt(a),sqrt(1-a),atan2(sqrt(a), sqrt(1-a)),3959 * 2 * atan2(sqrt(a), sqrt(1-a)) );
-    return d;
+    double theDistance = (sin([self toRadians:lat1]) *
+                          sin([self toRadians:lat2])) +
+                          cos([self toRadians:lat1]) *
+                          cos([self toRadians:lat2]) *
+                          cos([self toRadians:lon1 - lon2]);
+    
+//    return new Double((Math.toDegrees(Math.acos(theDistance))) * 69.09).intValue();
+    return [self toDegrees:(acos(theDistance))]*69.09*1.6093;// * 69.09.intValue();
+}
+
++(CGFloat)toRadians:(CGFloat ) deg {
+    return deg * (M_PI / 180.0f);
+}
+
+
++(CGFloat) toDegrees:(CGFloat )radians
+{
+    return radians * 180 / M_PI;
 }
 
 +(UIAlertView *)showAlert:(NSString *)title msg:(NSString *)message
