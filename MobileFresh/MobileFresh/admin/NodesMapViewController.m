@@ -470,7 +470,13 @@
    // self.searchButton.hidden = NO;
 }
 
-
+// Check Null Value
+-(id)checkNullValue:(id)val{
+    if(val == [NSNull null])
+        return @"";
+    else
+        return val;
+}
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"string---%d",buttonIndex);
@@ -481,46 +487,28 @@
     else if(buttonIndex ==1)
     {
         // show direction
-        CLLocation *location1 = [[CLLocation alloc] initWithLatitude:fromNode.latitude longitude: fromNode.longitude];
-        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:toNode.latitude longitude: toNode.longitude];
-        NSDictionary *address1 = @{
-                                  (NSString *)kABPersonAddressStreetKey: fromNode.title
-                                  };
+//        CLLocation *location1 = [[CLLocation alloc] initWithLatitude:fromNode.latitude longitude: fromNode.longitude];
+//        CLLocation *location2 = [[CLLocation alloc] initWithLatitude:toNode.latitude longitude: toNode.longitude];
+//        NSDictionary *address1 = @{
+//                                  (NSString *)kABPersonAddressStreetKey: fromNode.title
+//                                  };
         NSDictionary *address2 = @{
-                                  (NSString *)kABPersonAddressStreetKey: toNode.title
+//                                  (NSString *)kABPersonAddressStreetKey: toNode.title
+                                   (NSString *)kABPersonAddressStreetKey: [self checkNullValue:[toNode.addressDict valueForKey:@"Street"]],
+                                   (NSString *)kABPersonAddressCityKey: [self checkNullValue:[toNode.addressDict valueForKey:@"City"]],
+                                   (NSString *)kABPersonAddressStateKey: [self checkNullValue:[toNode.addressDict valueForKey:@"State"]],
+                                   (NSString *)kABPersonAddressCountryKey:[self checkNullValue:[toNode.addressDict valueForKey:@"Country"]]
                                   };
-//        __block MKPlacemark *placeMark1;
-//        [reverseGeocoder reverseGeocodeLocation: location1 completionHandler:
-//         ^(NSArray *placemarks, NSError *error) {
-//             
-//                 if (placemarks && placemarks.count > 0) {
-//                     CLPlacemark *topResult = [placemarks objectAtIndex:0];
-//                     // Create a MLPlacemark and add it to the map view
-//                     placeMark1 = [[MKPlacemark alloc] initWithPlacemark:topResult];
-//                     
-//                     NSLog(@"City---%@",placeMark1.locality);
-//             }
-//         }];
-//        __block MKPlacemark *placeMark2;
-//        [reverseGeocoder reverseGeocodeLocation: location2 completionHandler:
-//         ^(NSArray *placemarks, NSError *error) {
-//             
-//             if (placemarks && placemarks.count > 0) {
-//                 CLPlacemark *topResult = [placemarks objectAtIndex:0];
-//                 // Create a MLPlacemark and add it to the map view
-//                 placeMark2 = [[MKPlacemark alloc] initWithPlacemark:topResult];
-//                 NSLog(@"City---%@",placeMark1.locality);
-//             }
-//         }];
         
-        MKMapItem *mapItem1 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:address1]];
+//        MKMapItem *mapItem1 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(fromNode.latitude, fromNode.longitude) addressDictionary:address1]];
         MKMapItem *mapItem2 = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(toNode.latitude, toNode.longitude) addressDictionary:address2]];
-        NSArray *mapItems = @[mapItem1, mapItem2];
+//        NSArray *mapItems = @[mapItem1, mapItem2];
         
         NSDictionary *options = @{
                                   MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving
                                   };
-        [MKMapItem openMapsWithItems:mapItems launchOptions:options];
+//        [MKMapItem openMapsWithItems:mapItems launchOptions:options];
+        [mapItem2 openInMapsWithLaunchOptions:options];
     }
 }
 //- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
@@ -542,13 +530,16 @@
     }
     else
         statusStr = @"not received";
-    UpdateStatusInt *updateInt = [[UpdateStatusInt alloc] initWithDelegate:self callback:@selector(updateStatusResponse)];
+    UpdateStatusInt *updateInt = [[UpdateStatusInt alloc] initWithDelegate:self callback:@selector(updateStatusResponse:)];
     [updateInt updateStatusWithUrl:foodTypeStr status:statusStr];
 }
 
--(void)updateStatusResponse
+-(void)updateStatusResponse:(NSDictionary *)resultDict
 {
-    
+    NSLog(@"responseDict --%@",resultDict);
+    if (resultDict) {
+        NSLog(@"status --%@",[resultDict valueForKey:@"message"]);
+    }
 }
 - (void)didReceiveMemoryWarning
 {

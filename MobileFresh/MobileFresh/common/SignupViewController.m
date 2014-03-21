@@ -127,9 +127,7 @@
 -(void)signUpResponse:(NSDictionary *)resultDict
 {
     if(resultDict)
-    {
-        NSLog(@"connected Successfully");
-        
+    {        
         AppDelegate *appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         appDel.userName = userName.text;
         if ([[resultDict valueForKey:@"message"] isEqualToString:@"Success"])

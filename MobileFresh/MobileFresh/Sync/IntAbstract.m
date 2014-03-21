@@ -61,6 +61,9 @@
         NSLog(@"connected Successfully");
         [self performSelector:responseCallBack withObject:resultDict afterDelay:0];
     }
+    else
+        
+        [self performSelector:responseCallBack withObject:nil afterDelay:0];
     
     //initialize a new webviewcontroller
 }

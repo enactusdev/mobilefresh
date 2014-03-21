@@ -8,6 +8,7 @@
 
 #import "NodeListInt.h"
 #import "Node.h"
+#import "MobileFreshUtil.h"
 @implementation NodeListInt
 -(void)getNodeList
 {
@@ -18,9 +19,11 @@
 -(void)receiveNodes:(NSDictionary *)responseDict
 {
     NSMutableArray *nodeList = [[NSMutableArray alloc] init];
-    for (NSDictionary *nodeDict in [responseDict valueForKey:@"data"]) {
-        Node *node = [[Node alloc] initWithNodDict:nodeDict];
-        [nodeList addObject:node];
+    if ([MobileFreshUtil nullValue:[responseDict valueForKey:@"data"]]) {
+        for (NSDictionary *nodeDict in [responseDict valueForKey:@"data"]) {
+            Node *node = [[Node alloc] initWithNodDict:nodeDict];
+            [nodeList addObject:node];
+        }
     }
     [delegate performSelector:callbackAction withObject:nodeList afterDelay:0];
 }

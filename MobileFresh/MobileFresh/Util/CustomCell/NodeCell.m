@@ -19,7 +19,7 @@
         isNodeSelected = NO;
         
         nodeSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(20, 6, 51, 31)];
-        title = [MobileFreshUtil labelWithFrame:CGRectMake(93, 11, 170, 21) title:@""];
+        title = [MobileFreshUtil labelWithFrame:CGRectMake(93, 11, 215, 21) title:@""];
         
         [nodeSwitch addTarget:delegate action:@selector(updateSwitchAtIndexPath:) forControlEvents:UIControlEventTouchUpInside];
         

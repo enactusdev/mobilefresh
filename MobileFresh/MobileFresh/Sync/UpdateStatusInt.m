@@ -17,7 +17,7 @@
 
 -(void)receiveUpdateResponse:(NSDictionary *)responseDict
 {
-    [delegate performSelector:callbackAction withObject:nil afterDelay:0];
+    [delegate performSelector:callbackAction withObject:responseDict afterDelay:0];
 }
 
 @end

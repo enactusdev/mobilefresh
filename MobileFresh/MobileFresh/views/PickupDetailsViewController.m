@@ -7,7 +7,7 @@
 //
 
 #import "PickupDetailsViewController.h"
-
+#import "MobileFreshUtil.h"
 @interface PickupDetailsViewController ()
 
 @end
@@ -66,21 +66,26 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:Picker.date];
     NSLog(@"%@",dateString);
-//    [offer setObject:dateString forKey:@"usebydate"];
-    //Getting latitude and longitude values
-//    [self uploadOffer:offer];
     //Posting Date time ,foodtype values
     NSString *strRequest;
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:newManagedObject
-//                                                       options:NSJSONWritingPrettyPrinted error:Nil];
-//    NSString *jsonGeocodeString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    NSLog(@"Address--%@",appDelegate.userAddress);
-    strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&address=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userAddress];
-    SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
-    [submitInt getSubmitList:strRequest];
+    if (appDelegate.userAddress) {
+        NSData *addressData = [NSJSONSerialization dataWithJSONObject:appDelegate.userAddressDict
+                                                              options:NSJSONWritingPrettyPrinted error:Nil];
+        NSString *jsonGeocodeAddressString = [[NSString alloc] initWithData:addressData encoding:NSUTF8StringEncoding];
+        
+        
+//        NSLog(@"Address--%@",appDelegate.userAddress);
+        
+
+        strRequest = [NSString stringWithFormat:@"&foodtype=%@&time=%@&geocode=%lf,%lf&status=%@&address=%@&addressDictionary=%@",foodType.text,dateString,appDelegate.locationManager.location.coordinate.latitude,appDelegate.locationManager.location.coordinate.longitude ,@"wating",appDelegate.userAddress,jsonGeocodeAddressString];
+        SubmitListInt *submitInt = [[SubmitListInt alloc] initWithDelegate:self callback:@selector(postFoodData:)];
+        [submitInt getSubmitList:strRequest];
+    }
+    else
+    {
+        [MobileFreshUtil showAlert:@"Requires Location Service" msg:@"Please Goto:\n Setting > Privacy > Location > Enable Location for MobileFresh"];
+    }
 
 }
 

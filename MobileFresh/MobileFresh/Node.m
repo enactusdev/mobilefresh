@@ -10,7 +10,7 @@
 
 @implementation Node
 @synthesize title,latitude,longitude,isNodeSelected;
-@synthesize location,foodType,time,idStr,distance;
+@synthesize location,foodType,time,idStr,distance,addressDict;
 
 -(id)initWithNodDict:(NSDictionary *)nodeDict
 {
@@ -21,26 +21,15 @@
         self.foodType = [nodeDict valueForKey:@"foodtype"];
         self.time = [nodeDict valueForKey:@"time"];
         self.idStr = [nodeDict valueForKey:@"NodeId"];
-//        if ([[nodeDict valueForKey:@"NodeLocation"] rangeOfString:@","].location == NSNotFound) {
-//            
-//            self.latitude = 0;
-//            self.longitude = 0;
-//        }
-//        else {
-//            NSArray *locationArray = [self.location componentsSeparatedByString:@","];
-//            if (locationArray.count > 1) {
-//                self.latitude = [[locationArray objectAtIndex:0] floatValue];
-//                self.longitude = [[locationArray objectAtIndex:1] floatValue];
-//            }
-//            else
-//            {
-//                self.latitude = 0;
-//                self.longitude = 0;
-//            }
-//        }
         self.latitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Latitude"] floatValue];
         
         self.longitude = [[[nodeDict valueForKey:@"NodeLocation"] valueForKey:@"Longitude"] floatValue];
+        
+        if ([nodeDict valueForKey:@"addressDictionary"]) {
+            NSData *data = [[nodeDict valueForKey:@"addressDictionary"] dataUsingEncoding:NSUTF8StringEncoding];
+            self.addressDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        }
+//        self.addressDict = [nodeDict valueForKey:@"addressDictionary"];
         self.isNodeSelected = NO;
     }
     return self;

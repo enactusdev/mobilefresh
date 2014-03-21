@@ -13,7 +13,9 @@
 #import "NodeListInt.h"
 @interface NodeListTableViewController : UITableViewController<UITableViewDelegate,UITableViewDataSource>{
     NSMutableArray *nodesArray;
+    NSMutableDictionary *switchInfoDict;
 }
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadingWheel;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 -(void)getNodeList:(NSArray *)nodeListArray;
 @end

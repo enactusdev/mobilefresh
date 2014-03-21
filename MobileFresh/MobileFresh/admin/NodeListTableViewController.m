@@ -30,9 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    nodesArray = [[NSMutableArray alloc] init];
-//    
+//    nodesArray = [[NSMutableArray alloc] init];
+//
 //    for (NSInteger i=0; i<6; i++) {
 //        Node *node = [[Node alloc] init];
 //        node.title = [NSString stringWithFormat:@"Node %d",i];
@@ -44,7 +43,7 @@
     //TODO
     //get the list of nodes from server and display them here
     
-    [self getNodesFromAPI];
+//    [self getNodesFromAPI];
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -54,6 +53,44 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self addLoadingWheel];
+    [self initArray];
+    [self.tableView reloadData];
+}
+
+-(void)addLoadingWheel{
+    
+    self.loadingWheel.frame = CGRectMake((320-self.loadingWheel.frame.size.width)/2, self.loadingWheel.frame.origin.y, self.loadingWheel.frame.size.width, self.loadingWheel.frame.size.height);
+    [self.tableView addSubview:self.loadingWheel];
+    [self.loadingWheel startAnimating];
+}
+
+-(void)removeLoadingWheel
+{
+    [self.loadingWheel stopAnimating];
+    [self.loadingWheel removeFromSuperview];
+}
+-(void)initArray
+{
+    nodesArray = [[NSMutableArray alloc] init];
+    switchInfoDict = [[NSMutableDictionary alloc] init];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self initArray];
+    [self getNodesFromAPI];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [self removeLoadingWheel];
+    [super viewDidDisappear:animated];
+}
 -(void)getNodesFromAPI
 {
     NodeListInt *nodeInt = [[NodeListInt alloc] initWithDelegate:self callback:@selector(getNodeList:)];
@@ -63,10 +100,17 @@
 -(void)getNodeList:(NSArray *)nodeListArray
 {
 //    NSLog(@"Nodes Array--%@",nodeListArray);
-    
-    nodesArray = [[NSMutableArray alloc] initWithArray:nodeListArray];
-    
-    [self.tableView reloadData];
+    [self removeLoadingWheel];
+    if (nodeListArray.count) {
+        
+        nodesArray = [[NSMutableArray alloc] initWithArray:nodeListArray];
+        
+        [self.tableView reloadData];
+    }
+    else
+    {
+        [MobileFreshUtil showAlert:@"Mobile Fresh" msg:@"Currently there is no nodes to pick the food"];
+    }
 }
 
 -(void)btnSelected
@@ -89,6 +133,7 @@
     Node *node = [nodesArray objectAtIndex:sender.tag];
     cell.isNodeSelected = node.isNodeSelected = sender.on;
     
+    [switchInfoDict setValue:[NSString stringWithFormat:@"%d",sender.on] forKey:[NSString stringWithFormat:@"%d",sender.tag]];
     [nodesArray replaceObjectAtIndex:sender.tag withObject:node];
 }
 
@@ -113,17 +158,21 @@
     
     NSString *CellIdentifier = [NSString stringWithFormat:@"Cell-%d.%d",indexPath.section,indexPath.row];
 
-    NodeCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
-    if (cell == nil) {
-        
-        // Configure the cell...
+    NodeCell *cell ;
+//    = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+//
+//    if (cell == nil) {
+//        
+//        // Configure the cell...
         cell =[[NodeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier delegate:self];
         
         Node *node = [nodesArray objectAtIndex: indexPath.row];
         cell.nodeSwitch.tag = indexPath.row;
         cell.title.text = node.title;
+    if (switchInfoDict && [[switchInfoDict allKeys] containsObject:[NSString stringWithFormat:@"%d",indexPath.row]]) {
+        cell.nodeSwitch.on = [[switchInfoDict valueForKey:[NSString stringWithFormat:@"%d",indexPath.row]] integerValue];
     }
+//    }
     return cell;
 }
 

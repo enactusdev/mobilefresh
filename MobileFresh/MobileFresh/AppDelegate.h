@@ -16,5 +16,6 @@
 }
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,strong)NSString *userName,*userAddress;
+@property (nonatomic,strong)NSDictionary *userAddressDict;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @end

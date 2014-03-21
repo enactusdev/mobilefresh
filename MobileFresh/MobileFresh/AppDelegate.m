@@ -12,7 +12,7 @@
 
 #pragma mark - Properties
 
-@synthesize locationManager,userName,userAddress;
+@synthesize locationManager,userName,userAddress,userAddressDict;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
@@ -56,8 +56,11 @@
 //        NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
         if (error == nil && [placemarks count] > 0) {
             placemark = [placemarks lastObject];
-            self.userAddress = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
+            self.userAddress = [NSString stringWithFormat:@"%@%@%@%@%@%@",
                                  [self checkNull:placemark.subThoroughfare],[self checkNull: placemark.thoroughfare],[self checkNull:placemark.postalCode],[self checkNull:placemark.locality],[self checkNull:placemark.administrativeArea],[self checkNull:placemark.country]];
+            self.userAddressDict = placemark.addressDictionary;
+//            NSLog(@"placemark--%@ %@ %@ %@",placemark.thoroughfare,placemark.locality,placemark.administrativeArea,placemark.country);
+//            NSLog(@"Placemark Dictionary---%@",placemark.addressDictionary);
         } else {
 //            NSLog(@"%@", error.debugDescription);
         }
@@ -69,7 +72,7 @@
     if(val == [NSNull null] || !val)
         return @"";
     else
-        return val;
+        return [NSString stringWithFormat:@"%@ ",val];
 }
 
 - (void) locationManager:(CLLocationManager *)manager
