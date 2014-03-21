@@ -15,6 +15,7 @@
     NSMutableArray *nodesArray;
     NSMutableDictionary *switchInfoDict;
 }
+@property (strong, nonatomic) IBOutlet UIButton *nextButton;
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView *loadingWheel;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 -(void)getNodeList:(NSArray *)nodeListArray;

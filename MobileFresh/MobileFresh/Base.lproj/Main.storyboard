@@ -426,6 +426,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <navigationItem key="navigationItem" id="AVl-gS-Hmh"/>
                     <connections>
                         <outlet property="loadingWheel" destination="Coz-6v-MeI" id="oHQ-xG-hAv"/>
+                        <outlet property="nextButton" destination="CiT-se-u5P" id="t3Y-Ji-0pf"/>
                         <outlet property="tableView" destination="c4G-Qk-KIP" id="jyH-XO-qYB"/>
                         <segue destination="w88-Z9-xpc" kind="push" identifier="MapView" id="lNe-Qc-4Ad"/>
                     </connections>

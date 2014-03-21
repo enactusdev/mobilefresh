@@ -30,21 +30,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    nodesArray = [[NSMutableArray alloc] init];
-//
-//    for (NSInteger i=0; i<6; i++) {
-//        Node *node = [[Node alloc] init];
-//        node.title = [NSString stringWithFormat:@"Node %d",i];
-//        node.isNodeSelected = NO;
-//        node.latitude = [[NSString stringWithFormat:@"19.0%d76147",i] floatValue];
-//        node.longitude = [[NSString stringWithFormat:@"72.8%d61644",10-i] floatValue];;
-//        [nodesArray addObject:node];
-//    }
     //TODO
     //get the list of nodes from server and display them here
-    
-//    [self getNodesFromAPI];
-    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,6 +53,8 @@
     self.loadingWheel.frame = CGRectMake((320-self.loadingWheel.frame.size.width)/2, self.loadingWheel.frame.origin.y, self.loadingWheel.frame.size.width, self.loadingWheel.frame.size.height);
     [self.tableView addSubview:self.loadingWheel];
     [self.loadingWheel startAnimating];
+    
+    [self.nextButton setHidden:YES];
 }
 
 -(void)removeLoadingWheel
@@ -106,6 +95,8 @@
         nodesArray = [[NSMutableArray alloc] initWithArray:nodeListArray];
         
         [self.tableView reloadData];
+        
+        [self.nextButton setHidden:NO];
     }
     else
     {
