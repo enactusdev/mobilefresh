@@ -95,10 +95,11 @@
 }
 -(void)getShortestPath
 {
+    [self getCurrentLocation];
     distanceArray = [self getShortestDistanceArrayFromCurrentLocation];
     if (distanceArray.count) {
         sourceNode =[distanceArray objectAtIndex:0];
-//        NSLog(@"current location distance---%lf %@",sourceNode.distance,sourceNode.title);
+        NSLog(@"current location distance---%lfkm %@",sourceNode.distance*0.001,sourceNode.title);
         [shortestDistanceArray addObject:sourceNode];
         [nodesArray removeObject:sourceNode];
     }
@@ -115,21 +116,22 @@
     if (nodesArray.count == 0) {
         return;
     }
-//    NSLog(@"<--------->");
+    NSLog(@"<--------->");
     for (Node *node in nodesArray) {
         if (node.isNodeSelected) {
             
-            double distance = [MobileFreshUtil calculateDistanceWitLat:sourceNode.latitude fromLongitude:sourceNode.longitude toLat:node.latitude toLong:node.longitude];
-//            NSLog(@"distance---%lf  %@",distance,node.title);
+//            double distance = [MobileFreshUtil calculateDistanceWitLat:sourceNode.latitude fromLongitude:sourceNode.longitude toLat:node.latitude toLong:node.longitude];
+            double distance = [MobileFreshUtil distance:sourceNode.latitude fromLongitude:sourceNode.longitude toLat:node.latitude toLong:node.longitude altitude1:0 altitude2:0];
+            NSLog(@"distance---%lf km %@",distance*0.001,node.title);
             node.distance = distance;
             [distanceNodeArray addObject:node];
         }
     }
-//    NSLog(@"<--------->");
+    NSLog(@"<--------->");
     distanceArray = [self sortArray:distanceNodeArray];
     if (distanceArray.count) {
         sourceNode =[distanceArray objectAtIndex:0];
-//        NSLog(@"source distance---%lf  %@",sourceNode.distance,sourceNode.title);
+        NSLog(@"source distance---%lf km %@",sourceNode.distance*0.001,sourceNode.title);
         [shortestDistanceArray addObject:sourceNode];
         [nodesArray removeObject:sourceNode];
     }
@@ -144,8 +146,9 @@
     for (Node *node in nodesArray) {
         if (node.isNodeSelected) {
             
-            double distance = [MobileFreshUtil calculateDistanceWitLat:appDel.locationManager.location.coordinate.latitude fromLongitude:appDel.locationManager.location.coordinate.longitude toLat:node.latitude toLong:node.longitude];
-//            NSLog(@"distance---%lf %@",distance, node.title);
+//            double distance = [MobileFreshUtil calculateDistanceWitLat:appDel.locationManager.location.coordinate.latitude fromLongitude:appDel.locationManager.location.coordinate.longitude toLat:node.latitude toLong:node.longitude];
+            double distance = [MobileFreshUtil distance:appDel.locationManager.location.coordinate.latitude fromLongitude:appDel.locationManager.location.coordinate.longitude toLat:node.latitude toLong:node.longitude altitude1:0 altitude2:0];
+            NSLog(@"distance---%lf km %@",distance*0.001, node.title);
             node.distance = distance;
 //            [distanceMuttArray addObject:[NSString stringWithFormat:@"%lf",distance]];
             [distanceNodeArray addObject:node];
